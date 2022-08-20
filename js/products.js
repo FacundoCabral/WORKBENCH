@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded",function(){
                             <div class="col">
                                 <div class="d-flex w-100 justify-content-between">
                                     <div class="mb-1">
-                                    <h4>`+datos[1]  +`</h4> 
+                                    <h4>`+datos[1]+" "+"-"+" "+datos[4]+" "+datos[3]+`</h4> 
                                     <p> `+ datos[2] +`</p> 
                                     </div>
                                     <small class="text-muted">` +  datos[5] + ` artículos</small> 
