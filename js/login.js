@@ -8,15 +8,13 @@ let Contra = document.getElementById("cn").value;
     
 if (Email =="" && Contra=="") {
     alert("Por favor complete su Email y Contraseña");
-    document.getElementById("emailUser").innerHTML="style=background-color:red";
-    document.getElementById("cn").innerHTML="style=background-color:red";
-    console.log(emailUser)
+
 }else if (Email ==""){
     alert("Por favor complete su Email")
 }
 else if (Contra=="") {
     alert("Por favor complete su Contraseña")
 }else{
-    window.location = "index.html"
+    window.location = "index1.html" //renombramos a index.html como index1.html
 }
 })})
