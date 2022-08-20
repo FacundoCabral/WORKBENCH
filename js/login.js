@@ -15,6 +15,6 @@ if (Email =="" && Contra=="") {
 else if (Contra=="") {
     alert("Por favor complete su Contraseña")
 }else{
-    window.location = "index1.html" //renombramos a index.html como index1.html
+    window.location = "portada.html" //renombramos a index.html como portada.html
 }
 })})
