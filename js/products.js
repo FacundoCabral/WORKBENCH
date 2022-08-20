@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded",function(){
             if (resultObj.status === "ok"){
                 let arraydatos = resultObj.data;
 
-            let titulo="<h1>Productos</h1> <br> <h2>Verás aquí todos los productos de la categoría: Auto </h2>";
+            let titulo="<h1 style=text-align:center;>Productos</h1> <br> <h5 style=text-align:center;>Verás aquí todos los productos de la categoría: Auto </h5>";
             document.getElementById("Autos").innerHTML=titulo;
 
                for (i = 0; i <= 4; i++) {
