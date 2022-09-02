@@ -1,4 +1,5 @@
-const autoURL= "https://japceibal.github.io/emercado-api/cats_products/101.json";
+let idProducto = localStorage.getItem("catID"); //Obtenemos el id del producto al quel usuario le da click
+const autoURL= "https://japceibal.github.io/emercado-api/cats_products/"+`${idProducto}`+".json"; // hacemos variar el id del json xa que de el objeto con los productos correspondientes.
 
 document.addEventListener("DOMContentLoaded",function(){
         getJSONData(autoURL).then(function(resultObj){
