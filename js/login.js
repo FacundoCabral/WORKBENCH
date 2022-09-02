@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded",function(){ //Esto lo hacemos para 
     document.getElementById("buttonLogin").addEventListener("click",function(){
 
 let Email = document.getElementById("emailUser").value;
+let userMail = localStorage.setItem("UserMail", Email);
 let Contra = document.getElementById("cn").value;
     
 if (Email =="" && Contra=="") {
