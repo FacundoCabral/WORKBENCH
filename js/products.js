@@ -1,19 +1,24 @@
 let idProducto = localStorage.getItem("catID"); //Obtenemos el id del producto al quel usuario le da click
 const autoURL= "https://japceibal.github.io/emercado-api/cats_products/"+`${idProducto}`+".json"; // hacemos variar el id del json xa que de el objeto con los productos correspondientes.
-
+let datos;
 document.addEventListener("DOMContentLoaded",function(){
         getJSONData(autoURL).then(function(resultObj){
             if (resultObj.status === "ok"){
                 let arraydatos = resultObj.data;
 
-            let titulo="<h1 style=text-align:center;>Productos</h1> <br> <h5 style=text-align:center;>Verás aquí todos los productos de la categoría: Auto </h5>";
-            document.getElementById("Autos").innerHTML=titulo;
+            let titulo=`
+            <div class="text-center p-4">
+            <h1>Productos</h1>
+            <h5 class="lead">Verás aquí todos los productos de la categoría: ${arraydatos.catName}</h5>
+          </div>
+          `
+            document.getElementById("titulo").innerHTML=titulo; 
 
-               for (i = 0; i <= 4; i++) {
- 
+               for (i = 0; i < arraydatos.products.length; i++) {
+
                 let array= arraydatos.products[i];
 
-               let datos=Object.values(array);
+               datos=Object.values(array);
 
                 let htmlContentToAppend = "";
 
@@ -46,3 +51,12 @@ document.addEventListener("DOMContentLoaded",function(){
     
             }
         )});
+
+document.getElementById("filtrar").addEventListener("click",function(){
+
+let max=document.getElementById("max").value;
+
+let min=document.getElementById("min").value;
+
+})
+
