@@ -1,6 +1,9 @@
+
 let idProducto = localStorage.getItem("catID"); //Obtenemos el id del producto al quel usuario le da click
 const autoURL= "https://japceibal.github.io/emercado-api/cats_products/"+`${idProducto}`+".json"; // hacemos variar el id del json xa que de el objeto con los productos correspondientes.
-let datos;
+let arrayDeDatos;
+
+
 document.addEventListener("DOMContentLoaded",function(){
         getJSONData(autoURL).then(function(resultObj){
             if (resultObj.status === "ok"){
@@ -14,13 +17,33 @@ document.addEventListener("DOMContentLoaded",function(){
           `
             document.getElementById("titulo").innerHTML=titulo; 
 
+           /*  Debo crear acá el array con los productos  */
+
+           let array1 = Object.values(arraydatos);
+           let array2= array1[2] // array2 es un array de objetos => Ya debería poder usar el .sort
+           let array3="";
+           for (let i = 0; i < array2.length; i++) {
+            array3 +=array2[i].cost
+           }
+             console.log(array3)
+
+
+
+            /* Acá termina lo del array */
+
+
+
+           /*  Para mayor comodidad defino la funcion mostrarProductos  */
+
+            function mostrarProductos(){  /* Podria borrar esta funcion en caso de q no sirva  */
+
                for (i = 0; i < arraydatos.products.length; i++) {
 
                 let array= arraydatos.products[i];
 
                datos=Object.values(array);
-
-                let htmlContentToAppend = "";
+    
+                    let htmlContentToAppend = ""; /* Creo un string vacío al cuál le agregaremos la lista */
 
                     htmlContentToAppend += 
                     `
@@ -42,21 +65,31 @@ document.addEventListener("DOMContentLoaded",function(){
                         </div>
                     </div>
                     `
-                    document.getElementById("Autos").innerHTML += htmlContentToAppend; 
+                     document.getElementById("Autos").innerHTML += htmlContentToAppend;  
 
                 
-               }
+               }} 
+               mostrarProductos();
+             /*   A partir de acá empiezo a probar la pauta 3 */
+             
 
-               }
-    
-            }
-        )});
-
-document.getElementById("filtrar").addEventListener("click",function(){
-
-let max=document.getElementById("max").value;
-
-let min=document.getElementById("min").value;
-
+               document.getElementById("filtrar").addEventListener("click",function(){ /* Debe filtrar los productos que cumplan con las condiciones de los precios */
+               let max=document.getElementById("max").value;
+               let min=document.getElementById("min").value;
+               array2.sort(function(a,b) {
+/* 
+                if (a.) {
+                    
+                } */
+                
+               })
 })
 
+
+            } /* Terminación de función si sale bien del json */
+    
+
+
+
+            }
+        )});
