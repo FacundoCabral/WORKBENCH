@@ -1,7 +1,9 @@
 
-let idProducto = localStorage.getItem("catID"); //Obtenemos el id del producto al quel usuario le da click
+let idProducto = localStorage.getItem("catID"); //Obtenemos el id del producto al que el usuario le da click
 const autoURL= "https://japceibal.github.io/emercado-api/cats_products/"+`${idProducto}`+".json"; // hacemos variar el id del json xa que de el objeto con los productos correspondientes.
-let arrayDeDatos;
+let max;
+let min;
+let arrayMain=[];
 
 
 document.addEventListener("DOMContentLoaded",function(){
@@ -17,29 +19,19 @@ document.addEventListener("DOMContentLoaded",function(){
           `
             document.getElementById("titulo").innerHTML=titulo; 
 
-           /*  Debo crear acá el array con los productos  */
-
-           let array1 = Object.values(arraydatos);
-           let array2= array1[2] // array2 es un array de objetos => Ya debería poder usar el .sort
-           let array3="";
-           for (let i = 0; i < array2.length; i++) {
-            array3 +=array2[i].cost
-           }
-             console.log(array3)
-
-
-
-            /* Acá termina lo del array */
-
-
-
            /*  Para mayor comodidad defino la funcion mostrarProductos  */
 
-            function mostrarProductos(){  /* Podria borrar esta funcion en caso de q no sirva  */
+           arrayMain=arraydatos.products;
 
-               for (i = 0; i < arraydatos.products.length; i++) {
+            function mostrarProductos(arrayOrdenado){  /* Podria sacarla fuera de la escucha ---Es la equivalente a mostrarLibros() */ 
 
-                let array= arraydatos.products[i];
+            document.getElementById("Autos").innerHTML ="";     
+            
+               for (i = 0; i < arrayOrdenado.length; i++) {
+
+                let array= arrayOrdenado[i];
+
+                if ((!(array.cost< min)) && (!(array.cost> max))) {
 
                datos=Object.values(array);
     
@@ -65,25 +57,65 @@ document.addEventListener("DOMContentLoaded",function(){
                         </div>
                     </div>
                     `
+                    
                      document.getElementById("Autos").innerHTML += htmlContentToAppend;  
-
+               }
                 
                }} 
-               mostrarProductos();
+               mostrarProductos(arrayMain);
+
              /*   A partir de acá empiezo a probar la pauta 3 */
              
 
-               document.getElementById("filtrar").addEventListener("click",function(){ /* Debe filtrar los productos que cumplan con las condiciones de los precios */
-               let max=document.getElementById("max").value;
-               let min=document.getElementById("min").value;
-               array2.sort(function(a,b) {
-/* 
-                if (a.) {
-                    
-                } */
-                
-               })
-})
+             document.getElementById("filtrar").addEventListener("click",function(){ /* Debe filtrar los productos que cumplan con las condiciones de los precios */
+             max=parseInt(document.getElementById("max").value);
+             min=parseInt(document.getElementById("min").value);
+
+             mostrarProductos(arrayMain)
+
+}) /*  Acá termina Filtrar */
+
+/* Acá comienza Ordenar por Relevancia(rel)*/
+
+document.getElementById("rel").addEventListener("click",function(){ /* Debe filtrar los productos que cumplan con las condiciones de los precios */
+             arrayMain.sort(function(a,b) {
+                 return b.soldCount - a.soldCount
+                 } )
+                 
+             document.getElementById("Autos").innerHTML ="";
+             mostrarProductos(arrayMain);
+
+}) /* Acá termina Ordenar */
+
+
+/* Acá comienza Ordenar por precio ascendente(menorMayor)*/
+
+document.getElementById("menorMayor").addEventListener("click",function(){ /* Debe filtrar los productos que cumplan con las condiciones de los precios */
+             arrayMain.sort(function(a,b) {
+                 return b.cost - a.cost
+                 } )
+                 
+             document.getElementById("Autos").innerHTML ="";
+             mostrarProductos(arrayMain);
+                })
+
+/* Acá termina precio ascendente  */
+
+
+
+/* Acá comienza Ordenar por precio descendente(mayorMenor)*/
+
+document.getElementById("mayorMenor").addEventListener("click",function(){
+     /* Debe filtrar los productos que cumplan con las condiciones de los precios */
+             arrayMain.sort(function(a,b) {
+                 return a.cost - b.cost
+                 } )
+                 
+             document.getElementById("Autos").innerHTML ="";
+             mostrarProductos(arrayMain);
+
+/* Acá termina precio descendente  */
+
 
 
             } /* Terminación de función si sale bien del json */
@@ -91,5 +123,6 @@ document.addEventListener("DOMContentLoaded",function(){
 
 
 
-            }
-        )});
+
+        )
+    }})});
