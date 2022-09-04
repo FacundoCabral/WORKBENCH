@@ -19,11 +19,12 @@ document.addEventListener("DOMContentLoaded",function(){
           `
             document.getElementById("titulo").innerHTML=titulo; 
 
-           /*  Para mayor comodidad defino la funcion mostrarProductos  */
-
            arrayMain=arraydatos.products;
 
-            function mostrarProductos(arrayOrdenado){  /* Podria sacarla fuera de la escucha ---Es la equivalente a mostrarLibros() */ 
+           /*  Para mayor comodidad defino la funcion mostrarProductos  */
+
+
+            function mostrarProductos(arrayOrdenado){  /* Podria sacarla fuera de la escucha */ 
 
             document.getElementById("Autos").innerHTML ="";     
             
@@ -64,8 +65,7 @@ document.addEventListener("DOMContentLoaded",function(){
                }} 
                mostrarProductos(arrayMain);
 
-             /*   A partir de acá empiezo a probar la pauta 3 */
-             
+             /*   A partir de acá empiezo la pauta 3 */
 
              document.getElementById("filtrar").addEventListener("click",function(){ /* Debe filtrar los productos que cumplan con las condiciones de los precios */
              max=parseInt(document.getElementById("max").value);
@@ -106,7 +106,6 @@ document.getElementById("menorMayor").addEventListener("click",function(){ /* De
 /* Acá comienza Ordenar por precio descendente(mayorMenor)*/
 
 document.getElementById("mayorMenor").addEventListener("click",function(){
-     /* Debe filtrar los productos que cumplan con las condiciones de los precios */
              arrayMain.sort(function(a,b) {
                  return a.cost - b.cost
                  } )
