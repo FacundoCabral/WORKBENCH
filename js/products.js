@@ -4,6 +4,16 @@ const autoURL= "https://japceibal.github.io/emercado-api/cats_products/"+`${idPr
 let max;
 let min;
 let arrayMain=[];
+//Comienzo pauta 1 individual
+let idObjetoProducto;
+
+//Creo función redirigir
+
+function Redirigir(id) {
+
+    window.location.href="product-info.html";
+    localStorage.setItem("idObjeto",id)
+} 
 
 
 document.addEventListener("DOMContentLoaded",function(){
@@ -41,7 +51,8 @@ document.addEventListener("DOMContentLoaded",function(){
 
                     htmlContentToAppend += 
                     `
-                    <div class="list-group-item list-group-item-action">
+                    <div class="list-group-item list-group-item-action" id="${datos[0]}" 
+                    onclick="Redirigir(id)">
                         <div class="row">
                             <div class="col-3">
                                 <img src="` + datos[6]+ `" alt="product image" class="img-thumbnail">
