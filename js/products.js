@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded",function(){
             document.getElementById("titulo").innerHTML=titulo; 
 
            arrayMain=arraydatos.products;
+           arrayLimpio=arraydatos.products;
 
            /*  Para mayor comodidad defino la funcion mostrarProductos  */
 
@@ -111,17 +112,51 @@ document.getElementById("mayorMenor").addEventListener("click",function(){
                  } )
                  
              document.getElementById("Autos").innerHTML ="";
-             mostrarProductos(arrayMain);
+             mostrarProductos(arrayMain);})
 
 /* Acá termina precio descendente  */
 
+/* Botón Limpiar */
+document.getElementById("Limpiar").addEventListener("click",function(){
 
+    document.getElementById("Autos").innerHTML ="";
 
-            } /* Terminación de función si sale bien del json */
     
+    for (i = 0; i < arrayLimpio.length; i++) {
+
+        let array= arrayLimpio[i];
+
+    datos=Object.values(array);
+    
+    let htmlContentToAppend = ""; /* Creo un string vacío al cuál le agregaremos la lista */
+
+    htmlContentToAppend += 
+    `
+    <div class="list-group-item list-group-item-action">
+        <div class="row">
+            <div class="col-3">
+                <img src="` + datos[6]+ `" alt="product image" class="img-thumbnail">
+            </div>
+            <div class="col">
+                <div class="d-flex w-100 justify-content-between">
+                    <div class="mb-1">
+                    <h4>`+datos[1]+" "+"-"+" "+datos[4]+" "+datos[3]+`</h4> 
+                    <p> `+ datos[2] +`</p> 
+                    </div>
+                    <small class="text-muted">` +  datos[5] + ` artículos</small> 
+                </div>
+
+            </div>
+        </div>
+    </div>
+    `
+    
+     document.getElementById("Autos").innerHTML += htmlContentToAppend; 
+      ;    
+}})
+
+/* Termina botón limpiar */
 
 
-
-
-        )
-    }})});
+    }}/* Terminación de función si sale bien del json */
+    )});
