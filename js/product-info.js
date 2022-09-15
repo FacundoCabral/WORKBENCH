@@ -179,7 +179,7 @@ document.getElementById("comentariosUsers").innerHTML += nuevoComentario
 
 function fechaHOY() {
     let fecha = new Date();
-     hoy= `-${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()} ${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}-`
+     hoy= `${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()} ${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}`
      console.log(hoy);
 }
 
