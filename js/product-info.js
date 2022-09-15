@@ -5,6 +5,7 @@ let objetoProducto;
 let objetoComentarios;
 let score;
 let estrellas;
+let hoy;
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -29,8 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
     <img src="${objetoProducto.images[2]}" class="img-thumbnail i1">
     <img src="${objetoProducto.images[3]}" class="img-thumbnail i1">
 
-    <h3 class="Comentarios">Cometarios</h4>
-
+    <div class="container" id="comentariosUsers">
+    <h3 class="Comentarios">Cometarios</h3>
+    </div>
     </div>
     </div>
     </div>
@@ -43,7 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json()) // transformamos el response q nos devuelve el fetch en un objeto js
         .then(data => objetoProducto = data)//la promesa response.json nos devuelve un objeto llamado data y ese lo guardamos en objetoProducto
         .then(objetoProducto => agregarProductoHTML())
-        .then(miJSONDATA);
+        .then(miJSONDATA)
+        .then(comentar)
 
     function miJSONDATA(){ 
         fetch(urlComentarios)
@@ -53,7 +56,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         
 })//Termina DOMContentLoaded y cierra funcion de dentro.
+
 //Creo función xa calcular estrellas, es bastante bruta , seguro se puede mejorar.
+
 function calcStars(score) {
     if (score==5) {
     estrellas=` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -89,8 +94,16 @@ function calcStars(score) {
 <span class="fa fa-star"></span>
 <span class="fa fa-star"></span>
 <span class="fa fa-star"></span>
-`}
-console.log(estrellas);}
+`}else{estrellas=` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+`
+
+}
+}
 
 function comentarios(urlComentarios) {
 
@@ -108,22 +121,65 @@ function comentarios(urlComentarios) {
         </ul>
             </div>
 `
-//comentar();
-document.getElementById("contenedorProductos").innerHTML += agregarComentario;
+document.getElementById("comentariosUsers").innerHTML += agregarComentario;
 }}
    
 // Me queda terminar Pauta 4 y desafío.
 
 
+
 function comentar() {
-let agregarComentar=` <ul class="list-group">
-<li class="list-group-item"> 
-<strong>${objetoComentarios[i].user}</strong> - ${objetoComentarios[i].dateTime} - ${estrellas}
+let agregarComentar=` <h3 class="Comentarios">Cometarios</h3>
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Tu opinión:</label>
+  <textarea class="form-control" id="comentarioUsuario" rows="3"></textarea>
+</div>
+<select class="form-select" aria-label="Default select example" id="rateUser">
+  <option selected>Elige tu puntuación</option>
+  <option value="0">0</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+</select>
 <br>
-${objetoComentarios[i].description}
-</li>
-</ul>
+<div class="col-auto">
+    <button type="button" id="botonComentarios" class="btn btn-primary mb-3">Enviar</button>
+  </div>
 
 `
-    document.getElementById("contenedorComentarios").innerHTML += agregarComentar;
+document.getElementById("contenedorProductos").innerHTML += agregarComentar;
+
+document.getElementById("botonComentarios").addEventListener("click",function () {
+
+    let comentarioUsuario=document.getElementById("comentarioUsuario").value;
+    let rateUser=document.getElementById("rateUser").value;
+    calcStars(rateUser);
+    fechaHOY();
+
+    let nuevoComentario=`<div class="container" id="contenedorComentarios">
+    <ul class="list-group">
+           <li class="list-group-item"> 
+           <strong>${localStorage.getItem("UserMail")}</strong> - ${hoy} - ${estrellas}
+           <br>
+           ${comentarioUsuario}
+           </li>
+   </ul>
+       </div>
+
+    
+    `
+console.log(nuevoComentario);
+
+document.getElementById("comentariosUsers").innerHTML += nuevoComentario
+})}
+
+//Creo función xa obtener la fecha
+
+function fechaHOY() {
+    let fecha = new Date();
+     hoy= `-${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()} ${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}-`
+     console.log(hoy);
 }
+
