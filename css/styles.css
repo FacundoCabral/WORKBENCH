@@ -205,3 +205,10 @@ a.custom-card:hover {
 #contenedorComentarios{
 padding: 0px;
 }
+.nombres{
+  text-align: center;
+}
+.imagenesRelacionadas{
+  align-content: center;
+  
+}

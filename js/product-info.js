@@ -6,56 +6,70 @@ let objetoComentarios;
 let score;
 let estrellas;
 let hoy;
+let objetoProducto1;
+let url2;
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    function agregarProductoHTML() {
-        agregar = `
-    <div class="container">
-    <h1 id="p1" class="display-2" >${objetoProducto.name}</h1>
-    <div class="container">
-    <p><strong>Precio</strong></p>
-    <p>${objetoProducto.currency} ${objetoProducto.cost}</p>
-    <p><strong>Descripción</strong></p>
-    <p>${objetoProducto.description}</p>
-    <p><strong>Categoría</strong></p>
-    <p>${objetoProducto.category}</p>
-    <p><strong>Cantidad de vendidos</strong></p>
-    <p>${objetoProducto.soldCount}</p>
-    <p><strong>imágenes ilustrativas</strong></p>
+    loadPage(url)
 
-    <div class="row">
-    <img src="${objetoProducto.images[0]}" class="img-thumbnail i1">
-    <img src="${objetoProducto.images[1]}" class="img-thumbnail i1">
-    <img src="${objetoProducto.images[2]}" class="img-thumbnail i1">
-    <img src="${objetoProducto.images[3]}" class="img-thumbnail i1">
+})//Termina DOMContentLoaded y cierra funcion de dentro.
 
-    <div class="container" id="comentariosUsers">
-    <h3 class="Comentarios">Cometarios</h3>
-    </div>
-    </div>
-    </div>
-    </div>
-        </div>
-   `
-        document.getElementById("contenedorProductos").innerHTML += agregar;
-    }
-
+function loadPage(url) {
+        
     fetch(url)
         .then(response => response.json()) // transformamos el response q nos devuelve el fetch en un objeto js
         .then(data => objetoProducto = data)//la promesa response.json nos devuelve un objeto llamado data y ese lo guardamos en objetoProducto
         .then(objetoProducto => agregarProductoHTML())
         .then(miJSONDATA)
         .then(comentar)
-
-    function miJSONDATA(){ 
-        fetch(urlComentarios)
-        .then(response => response.json()) // transformamos el response q nos devuelve el fetch en un objeto js
-        .then(data => objetoComentarios = data)//la promesa response.json nos devuelve un objeto llamado data y ese lo guardamos en objetoProducto
-        .then(objetoComentarios=>comentarios(urlComentarios));}
-
+        .then(prodRelacionados)
         
-})//Termina DOMContentLoaded y cierra funcion de dentro.
+    }
+
+
+function agregarProductoHTML() {
+
+    document.getElementById("contenedorProductos").innerHTML ="";
+
+    agregar = `
+<div class="container">
+<h1 id="p1" class="display-2" >${objetoProducto.name}</h1>
+<div class="container">
+<p><strong>Precio</strong></p>
+<p>${objetoProducto.currency} ${objetoProducto.cost}</p>
+<p><strong>Descripción</strong></p>
+<p>${objetoProducto.description}</p>
+<p><strong>Categoría</strong></p>
+<p>${objetoProducto.category}</p>
+<p><strong>Cantidad de vendidos</strong></p>
+<p>${objetoProducto.soldCount}</p>
+<p><strong>imágenes ilustrativas</strong></p>
+
+<div class="row">
+<img src="${objetoProducto.images[0]}" class="img-thumbnail i1">
+<img src="${objetoProducto.images[1]}" class="img-thumbnail i1">
+<img src="${objetoProducto.images[2]}" class="img-thumbnail i1">
+<img src="${objetoProducto.images[3]}" class="img-thumbnail i1">
+
+<div class="container" id="comentariosUsers">
+<h3 class="Comentarios">Cometarios</h3>
+</div>
+</div>
+</div>
+</div>
+    </div>
+`
+    document.getElementById("contenedorProductos").innerHTML += agregar;
+}
+
+
+function miJSONDATA(){ 
+    fetch(urlComentarios)
+    .then(response => response.json()) // transformamos el response q nos devuelve el fetch en un objeto js
+    .then(data => objetoComentarios = data)//la promesa response.json nos devuelve un objeto llamado data y ese lo guardamos en objetoProducto
+    .then(objetoComentarios=>comentarios(urlComentarios));}
+
 
 //Creo función xa calcular estrellas, es bastante bruta , seguro se puede mejorar.
 
@@ -106,6 +120,8 @@ function calcStars(score) {
 }
 
 function comentarios(urlComentarios) {
+
+    document.getElementById("comentariosUsers").innerHTML +="";
 
     for (let i = 0; i < objetoComentarios.length; i++) {
 
@@ -170,11 +186,38 @@ document.getElementById("botonComentarios").addEventListener("click",function ()
 
     
     `
-console.log(nuevoComentario);
 
 document.getElementById("comentariosUsers").innerHTML += nuevoComentario
 })}
 
+//Creo funcion productos Relacionados
+function prodRelacionados() {
+
+    document.getElementById("Relacionados").innerHTML ="";
+
+let prod=`<hr>
+<div class="container Comentarios"><h4>Productos Relacionados</h4>
+<div class="row Comentarios" id="productosRelacionados">
+</div>
+</div>`;
+
+document.getElementById("Relacionados").innerHTML +=prod
+
+    for (let i = 0; i < objetoProducto.relatedProducts.length; i++) {
+
+      let id=objetoProducto.relatedProducts[i].id;  
+
+ prodRel=`
+    <div class="col-4" id="${objetoProducto.relatedProducts[i].id}" onclick="Redirigir(${(id)})"><a href="#contenedorProductos">
+        <img src="${objetoProducto.relatedProducts[i].image}" class="img-thumbnail imagenesRelacionadas"></img>
+        <p class="nombres">${objetoProducto.relatedProducts[i].name}</p></a>
+
+    </div>
+    `
+
+            document.getElementById("productosRelacionados").innerHTML +=prodRel;
+        }}
+ 
 //Creo función xa obtener la fecha
 
 function fechaHOY() {
@@ -183,3 +226,14 @@ function fechaHOY() {
      console.log(hoy);
 }
 
+function Redirigir(id) {  // Creo funciòn redirigir xa q cree la url cuando el usuario da click en algún objeto
+    //llama a la función q carga la página.
+
+    url2 = "https://japceibal.github.io/emercado-api/products/" + `${id}` + ".json";
+    urlComentarios="https://japceibal.github.io/emercado-api/products_comments/" + `${id}` + ".json";
+
+
+    loadPage(url2)
+    
+
+} 
