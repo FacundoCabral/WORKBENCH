@@ -32,8 +32,8 @@ function agregarProductoHTML() {
 
     document.getElementById("contenedorProductos").innerHTML ="";
 
-    agregar = `
-<div class="container">
+    agregar =`
+    <div class="container">
 <h1 id="p1" class="display-2" >${objetoProducto.name}</h1>
 <div class="container">
 <p><strong>Precio</strong></p>
@@ -45,21 +45,42 @@ function agregarProductoHTML() {
 <p><strong>Cantidad de vendidos</strong></p>
 <p>${objetoProducto.soldCount}</p>
 <p><strong>imágenes ilustrativas</strong></p>
-
-<div class="row">
-<img src="${objetoProducto.images[0]}" class="img-thumbnail i1">
-<img src="${objetoProducto.images[1]}" class="img-thumbnail i1">
-<img src="${objetoProducto.images[2]}" class="img-thumbnail i1">
-<img src="${objetoProducto.images[3]}" class="img-thumbnail i1">
-
-<div class="container" id="comentariosUsers">
+</div>
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    
+<div class="container uno">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="10000">
+        <img src="${objetoProducto.images[0]}" class="d-block w-100 ">
+        
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="${objetoProducto.images[1]}" class="d-block w-100 ">
+      </div>
+      <div class="carousel-item">
+        <img src="${objetoProducto.images[2]}" class="d-block w-100 ">
+      </div>
+      <div class="carousel-item">
+        <img src="${objetoProducto.images[3]}" class="d-block w-100">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  </div>
+  <div class="container" id="comentariosUsers">
 <h3 class="Comentarios">Cometarios</h3>
 </div>
 </div>
 </div>
-</div>
-    </div>
-`
+</div>`
+
     document.getElementById("contenedorProductos").innerHTML += agregar;
 }
 
@@ -237,3 +258,34 @@ function Redirigir(id) {  // Creo funciòn redirigir xa q cree la url cuando el 
     
 
 } 
+
+//Agregar viejo pero funcional
+
+/* agregar = `
+<div class="container">
+<h1 id="p1" class="display-2" >${objetoProducto.name}</h1>
+<div class="container">
+<p><strong>Precio</strong></p>
+<p>${objetoProducto.currency} ${objetoProducto.cost}</p>
+<p><strong>Descripción</strong></p>
+<p>${objetoProducto.description}</p>
+<p><strong>Categoría</strong></p>
+<p>${objetoProducto.category}</p>
+<p><strong>Cantidad de vendidos</strong></p>
+<p>${objetoProducto.soldCount}</p>
+<p><strong>imágenes ilustrativas</strong></p>
+
+<div class="row">
+<img src="${objetoProducto.images[0]}" class="img-thumbnail i1">
+<img src="${objetoProducto.images[1]}" class="img-thumbnail i1">
+<img src="${objetoProducto.images[2]}" class="img-thumbnail i1">
+<img src="${objetoProducto.images[3]}" class="img-thumbnail i1">
+
+<div class="container" id="comentariosUsers">
+<h3 class="Comentarios">Cometarios</h3>
+</div>
+</div>
+</div>
+</div>
+    </div>
+`*/
