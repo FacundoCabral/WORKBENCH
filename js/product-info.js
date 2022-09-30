@@ -258,34 +258,3 @@ function Redirigir(id) {  // Creo funciòn redirigir xa q cree la url cuando el 
     
 
 } 
-
-//Agregar viejo pero funcional
-
-/* agregar = `
-<div class="container">
-<h1 id="p1" class="display-2" >${objetoProducto.name}</h1>
-<div class="container">
-<p><strong>Precio</strong></p>
-<p>${objetoProducto.currency} ${objetoProducto.cost}</p>
-<p><strong>Descripción</strong></p>
-<p>${objetoProducto.description}</p>
-<p><strong>Categoría</strong></p>
-<p>${objetoProducto.category}</p>
-<p><strong>Cantidad de vendidos</strong></p>
-<p>${objetoProducto.soldCount}</p>
-<p><strong>imágenes ilustrativas</strong></p>
-
-<div class="row">
-<img src="${objetoProducto.images[0]}" class="img-thumbnail i1">
-<img src="${objetoProducto.images[1]}" class="img-thumbnail i1">
-<img src="${objetoProducto.images[2]}" class="img-thumbnail i1">
-<img src="${objetoProducto.images[3]}" class="img-thumbnail i1">
-
-<div class="container" id="comentariosUsers">
-<h3 class="Comentarios">Cometarios</h3>
-</div>
-</div>
-</div>
-</div>
-    </div>
-`*/
