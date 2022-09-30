@@ -44,7 +44,7 @@ function agregarProductoHTML() {
 <p>${objetoProducto.category}</p>
 <p><strong>Cantidad de vendidos</strong></p>
 <p>${objetoProducto.soldCount}</p>
-<p><strong>imágenes ilustrativas</strong></p>
+<h4><strong>imágenes ilustrativas:</strong></h4>
 </div>
     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
     
