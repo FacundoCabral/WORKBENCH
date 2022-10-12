@@ -27,6 +27,12 @@ function loadPage(url) {
         
     }
 
+function carrito() {
+
+  window.location.href="cart.html"
+  localStorage.setItem("url",url);
+}
+
 
 function agregarProductoHTML() {
 
@@ -34,9 +40,22 @@ function agregarProductoHTML() {
 
     agregar =`
     <div class="container">
+    
 <h1 id="p1" class="display-2" >${objetoProducto.name}</h1>
+
+
 <div class="container">
+<div class="row">
+<div class="col-3">
+
 <p><strong>Precio</strong></p>
+
+</div>
+<div class="col"></div>
+<div class="col-2 boton"><button type="button"  onclick="carrito()" class="btn btn-success">Comprar</button>
+</div>
+</div>
+
 <p>${objetoProducto.currency} ${objetoProducto.cost}</p>
 <p><strong>Descripción</strong></p>
 <p>${objetoProducto.description}</p>
