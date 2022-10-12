@@ -221,3 +221,21 @@ padding: 0px;
   margin-top: 50px;
   margin-bottom: 50px;
   }
+  .titulo{
+    padding-top: 30px;
+  }
+  .imagenesTabla{
+    width: 100px;
+  }
+  .centrado{
+    padding-top: 15px;
+  }
+.input{
+  margin-top: 14px;
+}
+.checkbox{
+  padding-left: 10px;
+}
+.tituloh3{
+  padding-bottom: 10px;
+}
