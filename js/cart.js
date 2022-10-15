@@ -4,7 +4,8 @@ let itemsDefault=[];
 let subTotal;
 let iD= localStorage.getItem(`identificador`);
 let stringComprado= localStorage.getItem(`${iD}`);
-let arrayCompras=stringComprado.split(",");
+let arrayCompras; 
+
 console.log(arrayCompras)
 //Una vez tengo el array , debo modificar la funciòn que lo imrpime en pantalla xa que tengan el mismo formato.
 //De hecho puedo crear otra funciòn q imprima en pantalla el objeto sin necesidad de modificar la otra.
@@ -46,7 +47,7 @@ document.getElementById("contenedorItems").innerHTML+="";
          <td class="text-center"><input onkeyup="mostrar(this.value)" class="input text-center" id="cantidadItems" type="text" placeholder=1 value=1 min=1 step="1"></td>
          <td  class="text-center"><p class="centrado fw-bold" id="columnaUltima">USD </p></td>`
 
-         document.getElementById("contenedorItems").innerHTML=agregarAHtml;//agregamos lo q tenemos hasat ahora al html
+         document.getElementById("contenedorItems").innerHTML=agregarAHtml;//agregamos lo q tenemos hasta ahora al html
          subTotal=parseInt(document.getElementById("cantidadItems").value)*(subTotal);//Calculamos el subtotal
 
 let agregarAHtml2=`${subTotal}` //Definimos una variable con el valor q calculamos el subtotal
@@ -58,7 +59,10 @@ function agregarEnvio() {
     //Para hacer funcionalidad de envíos
 }
 
+
 function agregarProductos(id) {
+
+    arrayCompras=stringComprado.split(","); //Al hacer esto me evito que si no se le da a comprar a ningún item, no de error.
     
 
     if (id) {
