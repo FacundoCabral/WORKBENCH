@@ -17,5 +17,7 @@ else if (Contra=="") {
     alert("Por favor complete su Contraseña")
 }else{
     window.location = "portada.html" //renombramos a index.html como portada.html
+    localStorage.setItem("ids","50924")//Ultimo desafiate
 }
 })})
+

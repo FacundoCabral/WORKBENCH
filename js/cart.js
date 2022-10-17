@@ -2,14 +2,24 @@ let userId=25801;
 let url=`https://japceibal.github.io/emercado-api/user_cart/${userId}.json`;
 let itemsDefault=[];
 let subTotal;
-let iD= localStorage.getItem(`identificador`);
-let stringComprado= localStorage.getItem(`${iD}`);
+let iD= localStorage.getItem("idObjeto");
+/* let stringComprado= localStorage.getItem(`${localStorage.getItem("idObjeto")}`); */
 let arrayCompras; 
 
-console.log(arrayCompras)
-//Una vez tengo el array , debo modificar la funciòn que lo imrpime en pantalla xa que tengan el mismo formato.
-//De hecho puedo crear otra funciòn q imprima en pantalla el objeto sin necesidad de modificar la otra.
 
+//Pruebo xa desfiate
+let ids;//Creo el array ids, al cual le pasaremos todos los ids que recibamos(Con el objetivo de poder comparar nuevos y viejos) 
+ids=iD;
+
+
+if (ids!=localStorage.getItem("ids")) {
+   let agregar =[localStorage.getItem("ids")]  
+    agregar.push(ids)
+    localStorage.setItem("ids",agregar);//Recordar que el array agregar , se va al local como string , debemos volverlo nuevamente array con split()
+}
+
+//Termino de probar xa desafiate
+console.log(arrayCompras)
 
 
 function traerItems() {
@@ -17,7 +27,7 @@ function traerItems() {
     .then(response=>response.json())
     .then(data=>itemsDefault.push(data))
     .then(agregarHtml)
-    .then(agregarProductos)
+    .then(agregarProductos)// capáz la tengo q sacar de acá, si no acepta parámetros
 }
 
 function mostrar(valor){
@@ -59,21 +69,21 @@ function agregarEnvio() {
     //Para hacer funcionalidad de envíos
 }
 
+//Necesito q la funcion tome el parámetro iD 
 
-function agregarProductos(id) {
+function agregarProductos(id) {//Hay q pasarle como parámetro a arrayCompras
 
-    arrayCompras=stringComprado.split(","); //Al hacer esto me evito que si no se le da a comprar a ningún item, no de error.
+    let stringComprado= localStorage.getItem("ids");
+     arrayIds = stringComprado.split(","); //arrayIds ya es un array con todas las ids de los objetos
+     console.log("rffrfrfr",arrayIds[0]);
+
+for (let i = 1; i <arrayIds.length; i++) {
+
+let stringCompras= localStorage.getItem(`${arrayIds[i]}`);//Al traer del local, nos lo devuelve como un srting, xa volverlo array misma estrategia= split()
+arrayCompras= stringCompras.split(",");//Al fin obtenemos el array con los datos del objeto
+console.log("Este es el array de Compras:",arrayCompras);
     
-
-    if (id) {
-        
-    }
-
     subTotal1=arrayCompras[2];
-
-for (let i = 0; i < 1; i++) {
-
-    
 
     let agregarAHtml1 =`
         <tr>

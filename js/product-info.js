@@ -31,11 +31,12 @@ function loadPage(url) {
     }
 
 function carrito() {
-
   window.location.href="cart.html"
+
   arrayCompras.push(objetoProducto.id,objetoProducto.name,objetoProducto.cost,objetoProducto.images[0],objetoProducto.currency,);
-  iD=objetoProducto.id;//Guardo el id del objeto
-  localStorage.setItem(`identificador`,iD);//lo guardo en el local
+
+  iD=localStorage.getItem("idObjeto");//Traigo el id del objeto
+
   localStorage.setItem(`${iD}`,arrayCompras);//Guardo el array con los datos del objeto y como nombre paso su iD= variable anterior
 //De esa manera logro llevarme el id del objeto , lo igualo a otra variable=iD en el cart.js y accededo a los datos del objeto con el iD q me llevo. 
 //Esto me trae el problema que en el local se guarda como string , asì q tengo un string separado por comas con los datos
@@ -43,7 +44,7 @@ function carrito() {
 
 console.log(arrayCompras);
 
-
+  
 }
 
 /* function carritoPrueba() {
