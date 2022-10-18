@@ -41,27 +41,7 @@ function carrito() {
 //De esa manera logro llevarme el id del objeto , lo igualo a otra variable=iD en el cart.js y accededo a los datos del objeto con el iD q me llevo. 
 //Esto me trae el problema que en el local se guarda como string , asì q tengo un string separado por comas con los datos
 //que guardé, la variable se llama (en cart.js) stringComprado, luego uso split(",") sobre ese string y me devuelve un array con los datos entre las comillas  
-
-console.log(arrayCompras);
-
-  
 }
-
-/* function carritoPrueba() {
-  arrayCompras.push(objetoProducto.id,objetoProducto.name,objetoProducto.cost,objetoProducto.images[0],objetoProducto.currency,);
-  iD=objetoProducto.id;
-  localStorage.setItem(`identificador`,iD);//Guardo el id del objeto
-  localStorage.setItem(`${iD}`,arrayCompras);//Guardo el array con los datos del objeto y como nombre paso su iD= variable anterior
-//De esa manera logro llevarme el id del objeto , lo igualo a otra variable=iD en el cart.js y acceder a los datos del objeto con el iD q me llevo. 
-console.log(arrayCompras);
-let objetoComprado= localStorage.getItem(`${iD}`);//
-console.log("objetoComprado = ", objetoComprado);
-console.log("objetoComprado = ", typeof objetoComprado);
-console.log(arrayComprasArray.push(objetoComprado))
-let arrayMierda=objetoComprado.split(",");
-console.log("arrayMierda = ", arrayMierda);
-
-} */
 
 function agregarProductoHTML() {
 
