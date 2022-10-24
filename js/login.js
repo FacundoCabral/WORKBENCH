@@ -20,4 +20,36 @@ else if (Contra=="") {
     localStorage.setItem("ids","50924")//Ultimo desafiate
 }
 })})
+/* 
 
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAV98k2Y79OAx6fVQUZrilykaj7r4R0kS8",
+    authDomain: "e-mercado-fc.firebaseapp.com",
+    projectId: "e-mercado-fc",
+    storageBucket: "e-mercado-fc.appspot.com",
+    messagingSenderId: "473749367843",
+    appId: "1:473749367843:web:21e3acd1636df6cce75596"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-app.js";
+import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-auth.js";
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+import { getAuth } from "firebase/auth";
+
+const auth = getAuth();
+auth.languageCode = 'it';
+// To apply the default browser preference instead of explicitly setting it.
+// firebase.auth().useDeviceLanguage();
+ */
+//Autenticación mediante Firebase con Google como proveedor de identidad buscar textual en yt
