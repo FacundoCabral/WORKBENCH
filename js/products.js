@@ -171,6 +171,8 @@ document.getElementById("Limpiar").addEventListener("click",function(){
 
     }}/* Terminación de función si sale bien del json */
     )});
+
+    //Desafiate Entregable 2, buscador en tiempo real 
     document.getElementById("buscador").addEventListener("keyup",()=>{
 
         let busqueda=document.getElementById("buscador").value;
@@ -188,3 +190,4 @@ document.getElementById("Limpiar").addEventListener("click",function(){
         })
 
     })
+//Fin Desafiate Entregable 2
