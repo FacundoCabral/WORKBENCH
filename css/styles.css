@@ -239,3 +239,17 @@ padding: 0px;
 .tituloh3{
   padding-bottom: 10px;
 }
+.buscador{
+  margin-right: 20px;
+}
+.textoBuscador{
+  padding-right: 10px;
+  margin-bottom: 0px;
+  margin-top: 6px;
+}
+.filtro{
+  display:none;
+}
+.nombre{
+ 
+}

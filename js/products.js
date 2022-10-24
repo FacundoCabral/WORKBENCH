@@ -4,8 +4,8 @@ const autoURL= "https://japceibal.github.io/emercado-api/cats_products/"+`${idPr
 let max;
 let min;
 let arrayMain=[];
-//Comienzo pauta 1 individual
 let idObjetoProducto;
+let articulo;
 
 //Creo función redirigir
 
@@ -51,16 +51,16 @@ document.addEventListener("DOMContentLoaded",function(){
 
                     htmlContentToAppend += 
                     `
-                    <div class="list-group-item list-group-item-action" id="${datos[0]}" 
+                    <div class="articulo list-group-item list-group-item-action" id="${datos[0]}" 
                     onclick="Redirigir(id)">
                         <div class="row">
-                            <div class="col-3">
+                            <div class=" col-3">
                                 <img src="` + datos[6]+ `" alt="product image" class="img-thumbnail">
                             </div>
                             <div class="col">
                                 <div class="d-flex w-100 justify-content-between">
                                     <div class="mb-1">
-                                    <h4>`+datos[1]+" "+"-"+" "+datos[4]+" "+datos[3]+`</h4> 
+                                    <h4 class="nombre">`+datos[1]+" "+"-"+" "+datos[4]+" "+datos[3]+`</h4> 
                                     <p> `+ datos[2] +`</p> 
                                     </div>
                                     <small class="text-muted">` +  datos[5] + ` artículos</small> 
@@ -171,3 +171,20 @@ document.getElementById("Limpiar").addEventListener("click",function(){
 
     }}/* Terminación de función si sale bien del json */
     )});
+    document.getElementById("buscador").addEventListener("keyup",()=>{
+
+        let busqueda=document.getElementById("buscador").value;
+
+        document.querySelectorAll(".articulo").forEach((articulo)=>{
+
+            console.log(articulo);
+        
+            if(articulo.textContent.toLowerCase().includes(busqueda.toLowerCase())) {
+                articulo.classList.remove("filtro")
+            }
+            
+            else{articulo.classList.add("filtro");} 
+
+        })
+
+    })
