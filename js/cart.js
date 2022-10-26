@@ -6,7 +6,8 @@ let iD= localStorage.getItem("idObjeto");
 /* let stringComprado= localStorage.getItem(`${localStorage.getItem("idObjeto")}`); */
 let arrayCompras; 
 let idsUsadas=[];
-
+let y;
+let id;
 
 
 //Pruebo xa desfiate
@@ -19,7 +20,11 @@ else if (ids!=localStorage.getItem("ids")) {
    let agregar =[localStorage.getItem("ids")]  
     agregar.push(ids)
     localStorage.setItem("ids",agregar);//Recordar que el array agregar , se va al local como string , debemos volverlo nuevamente array con split()
-}
+}/* else{
+   let agregar =[localStorage.getItem("ids")]  
+    agregar.push(ids)
+    localStorage.setItem("ids",agregar); 
+} */
 
 //Termino de probar xa desafiate
 console.log(arrayCompras)
@@ -33,21 +38,30 @@ function traerItems() {
     .then(agregarProductos)
 }
 
-function mostrar(valor){
-    if (valor>0) {
+function mostrar(valor){ //función xa mostrar valor del primer objeto
+    if (valor>1) {
         subTotal=parseInt(valor)* subTotal
     }else{subTotal=itemsDefault[0].articles[0].unitCost;}
-    document.getElementById("columnaUltima").innerHTML=`USD ${subTotal}`;
-console.log(subTotal);
+    document.getElementById(`columnaUltima${id}`).innerHTML=`USD ${subTotal}`;
+}
+
+function mostrarAgregado(valor,id,subTotal,moneda){//función xa mostrar valor del resto de objetos
+   if (valor>1) {
+        subTotal=parseInt(valor)* subTotal; 
+    }else{subTotal}
+    document.getElementById(`columnaUltima${id}`).innerHTML=`${moneda} ${subTotal}`;
+    console.log(subTotal); 
 }
 
 function agregarHtml() {
 
-let id=itemsDefault[0].articles[0].id;
+id=itemsDefault[0].articles[0].id;
 
 document.getElementById("contenedorItems").innerHTML+="";
 
  for (let i= 0; i < itemsDefault.length; i++) {
+
+
 
     subTotal=itemsDefault[i].articles[i].unitCost;
     console.log(subTotal);
@@ -88,7 +102,7 @@ for (let i = 1; i <arrayIds.length; i++) {  //El if debe ir dentro del for, porq
 console.log("itera  =======>",i);
 
 if (arrayIds[i]==50924) { 
-    console.log("entra al else if------------------------------------------------------------------");
+    console.log("ES EL ITEM DEFAULT------------------------------------------------------------------");
     document.getElementById(`cantidadItems50924`).value++;
 
     
@@ -96,10 +110,13 @@ if (arrayIds[i]==50924) {
 }else if (idsUsadas.includes(arrayIds[i])) {
 
 let id=arrayCompras[0];
+console.log(arrayCompras[0]);
+console.log(id);
 
-    console.log("Entra al elseIF------------------------------------------------------------------");
+    console.log("ES UNA ID USADA------------------------------------------------------------------");
     document.getElementById(`cantidadItems${id}`).value++;//Se le agrega 1 a cantidad
-
+   /*  subTotal=parseInt(document.getElementById(`cantidadItems${id}`).value)*(subTotal1);
+    let agregarAHtml21=`${subTotal}` */
 }else{
 
     idsUsadas.push(arrayIds[i]);
@@ -110,19 +127,22 @@ arrayCompras= stringCompras.split(",");//Al fin obtenemos el array con los datos
 console.log("Este es el array de Compras:",arrayCompras);
     
 let id=arrayCompras[0];
+
+
     subTotal1=arrayCompras[2];
 
     let agregarAHtml1 =`
         <tr>
          <th><img class="imagenesTabla rounded mx-auto d-block" src=${arrayCompras[3]}></th>
          <td class="text-center"><p class="centrado">${arrayCompras[1]}</p></td>
-         <td class="text-center"><p class="centrado">USD ${arrayCompras[2]}</p></td> 
-         <td class="text-center"><input onkeyup="mostrar(this.value)" class="input text-center" id="cantidadItems${id}" type="text" placeholder=1 value=1 min=1 step="1"></td>
-         <td  class="text-center"><p class="centrado fw-bold" id="columnaUltima${id}">USD </p></td>`
+         <td class="text-center"><p class="centrado">${arrayCompras[4]} ${arrayCompras[2]}</p></td> 
+         <td class="text-center"><input onkeyup="mostrarAgregado(this.value,${id},${arrayCompras[2]},'${arrayCompras[4]}')" class="input text-center" id="cantidadItems${id}" type="text" placeholder=1 value=1 min=1 step="1"></td>
+         <td  class="text-center"><p class="centrado fw-bold" id="columnaUltima${id}">${arrayCompras[4]} </p></td>`
 
          document.getElementById("contenedorItems").innerHTML+=agregarAHtml1;
          subTotal=parseInt(document.getElementById(`cantidadItems${id}`).value)*(subTotal1);
-         let agregarAHtml21=`${subTotal1}` 
+         console.log("cantidad================",document.getElementById(`cantidadItems${id}`).value);
+         let agregarAHtml21=`${subTotal}` 
    document.getElementById(`columnaUltima${id}`).innerHTML+=agregarAHtml21 + `</tr>` ;
 
    
