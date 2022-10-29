@@ -378,13 +378,3 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
 });
 
-
-
-
-
-
-
-
-
-
-
