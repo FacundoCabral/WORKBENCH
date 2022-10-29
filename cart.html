@@ -36,66 +36,222 @@
     </div>
   </nav>
   <main>
-        <div class="container">
-          <h2 class="text-center titulo">Carrito de compras</h2>
-          <h4 class="titulo">Articulos a comprar</h4>
-          <table class="table">
-            <thead>
-              <tr>
-                <th class="text-center" scope="col"></th>
-                <th class="text-center"scope="col">Nombre</th>
-                <th class="text-center"scope="col">Costo</th>
-                <th class="text-center"scope="col">Cantidad</th>
-                <th class="text-center"scope="col">Subtotal</th>
-              </tr>
-            </thead>
-            <tbody id="contenedorItems">
-            </tbody>
-          </table>
+    <div class="container">
+      <h2 class="text-center titulo">Carrito de compras</h2>
+      <h4 class="titulo">Articulos a comprar</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-center" scope="col"></th>
+            <th class="text-center" scope="col">Nombre</th>
+            <th class="text-center" scope="col">Costo</th>
+            <th class="text-center" scope="col">Cantidad</th>
+            <th class="text-center" scope="col">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="contenedorItems">
+        </tbody>
+      </table>
     </div>
-    <div class="container"> <hr>
+    <div class="container">
+      <hr>
 
-      <h3 id="pepe" class="tituloh3">Tipo de envío</h3>
+<!-- Empieza el formulario1 -->
 
-      <form method="post"> 
-      <div class="input-group">
-          <input class="form-check-input" type="radio" name="tipoEnvio" value="" aria-label="Radio button for following text input">
-          <p class="checkbox">Premium 2 a 5 días (15%)</p>
-      </div>
-      
-        <div class="input-group">
-            <input class="form-check-input" type="radio" name="tipoEnvio" value="" aria-label="Radio button for following text input">
-            <p class="checkbox">Express 5 a 8 días (7%)</p>
-        </div>
+      <form action="#" id="formulario1" method="post" class="needs-validation" novalidate>
+
+      <h3 id="tipoEnvio" class="tituloh3">Tipo de envío</h3>
+
+      <!-- <form method="post"> -->
+        <div id="eleccionUser">
+          <div class="input-group" id="">
+            <input class="form-check-input" type="radio" name="eleccionUser" value="15/100"
+              aria-label="Radio button for following text input" id="1">
+            <p class="checkbox">Premium 2 a 5 días (15%)</p>
+          </div>
 
           <div class="input-group">
-              <input class="form-check-input" type="radio" name="tipoEnvio" value="" aria-label="Radio button for following text input" checked>
-              <p class="checkbox">Standard 12 a 15 días (5%)</p>
-            
-            </form>
+            <input class="form-check-input" type="radio" name="eleccionUser" value="7/100"
+              aria-label="Radio button for following text input" id="2">
+            <p class="checkbox">Express 5 a 8 días (7%)</p>
+          </div>
+
+          <div class="input-group">
+            <input class="form-check-input" type="radio" name="eleccionUser" value="5/100"
+              aria-label="Radio button for following text input" checked id="3">
+            <p class="checkbox" id="default">Standard 12 a 15 días (5%)</p>
+          </div>
         </div>
-        <h3 id="pepe" class="tituloh3">Dirección de Envío</h3>
-        <div class="row">
-          <div class="mb-3 col">
-            <label for="exampleFormControlInput1" class="form-label">Calle</label>
-            <input type="text" class="form-control" id="" placeholder="Calle">
-          
+
+    <!--   </form> -->
+      <h3 id="pepe" class="tituloh3">Dirección de Envío</h3>
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="calle" class="form-label">Calle</label>
+          <input type="text" class="form-control" id="calle" placeholder="Calle" required >
+          <div class="invalid-feedback">
+            Debe ingresar un calle.
           </div>
-          <div class="mb-3 col">
-            <label for="exampleFormControlInput1" class="form-label">Número</label>
-            <input type="text" class="form-control" id="" placeholder="Número">
-          </div>
+        </div>
+        <div class="mb-3 col">
+          <label for="numero" class="form-label">Número</label>
+          <input type="number" class="form-control" id="numero" placeholder="Número" required min="0">
+          <div class="invalid-feedback">
+            Debe ingresar un número.
+              </div>
+        </div>
       </div>
       <div class="row">
         <div class="mb-3 col-6">
-          <label for="exampleFormControlInput1" class="form-label">Esquina</label>
-          <input type="text" class="form-control" id="" placeholder="Esquina">
+          <label for="esquina" class="form-label">Esquina</label>
+          <input type="text" class="form-control" id="esquina" placeholder="Esquina" required>
+          <div class="invalid-feedback">
+            Debe ingresar una esquina.
+              </div>
         </div>
       </div>
+    </form> <!-- Cierro Form -->
       <hr>
+      <div>
+        <h3>Costos</h3>
+        <div>
+          <ul class="list-group">
+            <li class="list-group-item costos">
+              <p class="tcostos">Subtotal</p>
+              <div class="row">
+                <p class="mtitulo tcostos col-5">Costo unitario del producto por cantidad</p>
+                <p class="mtitulo tcostos col-6" id="subtotal">USD</p>
+              </div>
+            </li>
+            <li class="list-group-item costos">
+              <p class="tcostos">Costo de envío</p>
+              <div class="row">
+                <p class="mtitulo tcostos col-5">Según tipo de envío</p>
+                <p class="mtitulo tcostos col-6" id="costoEnvio">USD</p>
+              </div>
+            </li>
+            <li class="list-group-item costos">
+              <div class="row">
+                <p class="tcostos col-5">Total($)</p>
+                <p class="mtitulo tcostos col-6" id="Total"><b>USD</b></p>
+              </div>
+            </li>
+          </ul>
+          <hr>
+
+          <h3 id="formaPago">Forma de pago</h3>
+
+        <div class="row">
+          <div class="col-3">
+          <p id="seleccion">No ha seleccionado </p>
+        </div>
+        <div class="col-6">
+          <p><a href=""  data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Seleccionar</a></p>
+        </div>
+        <div id="agregarError"></div>
+      </div>
+          <!-- Modal -->
+
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true" form="formulario1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdrop"><b>Forma de Pago</b></h1><hr>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="input-group">
+                  <input class="form-check-input" form="formulario1" type="radio"  novalidate aria-label="Radio button for following text input" name="metodoPago" id="tarjetaCredito"> Tarjeta de crédito
+                </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col elementosModal">  Número de tarjeta
+
+                    <input name="tarjeta"  class="" form="formulario1" id="numeroTarjeta" type="number" minlength="1" required>
+
+
+                  <div class="invalid-feedback">
+                    Debe ingresar un número de tarjeta válido.
+                      </div>
+                      <div class="valid-feedback">
+                        Todo está correcto!
+                          </div>
+                      
+
+                    </div>
+                    <div class="col elementosModal">Código de seg.
+
+
+                  <input name="tarjeta" form="formulario1" class="" id="codSeguridad"type="number" minlength="4" required>
+
+
+                  <div class="invalid-feedback">
+                    Debe ingresar un código válido.
+                      </div>
+                      <div class="valid-feedback">
+                        Todo está correcto!
+                          </div>
+
+                </div>
+                </div>
+                  <div class="row elementosModal">
+                    <div class="col-12">Vencimiento(MM/AA)
+                    <div class="col-12" minlength="1">
+
+                  <input type="date" form="formulario1" id="vencimiento" class="col-12" minlength="1" required>
+
+
+                  <div class="invalid-feedback">
+                    Debe ingresar una fecha válida.
+                      </div>
+                      <div class="valid-feedback">
+                        Todo está correcto!
+                          </div>
+                  
+                </div>
+              </div>
+                </div>
+                  <div class="row">
+                    <div class="col elementosModal">
+                      <div class="input-group">
+                      <input class="form-check-input" form="formulario1" type="radio" name="metodoPago" id="transferencia" >Transferencia bancaria</div>
+                    <hr>
+                  </div>
+                </div>
+                  <div class="row">
+                    <div class="col elementosModal">Número de cuenta
+
+
+                    <input type="number" id="numeroCuenta"  form="formulario1" name="transferencia" class="col-6" min="1" required>
+
+
+                    <div class="invalid-feedback">
+                      Debe ingresar un número de cuenta válido.
+                        </div>
+                        <div class="valid-feedback">
+                          Todo está correcto!
+                            </div>
+                  </div>
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" form="formulario1" id="hecho" data-bs-dismiss="modal">Hecho</button>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <!-- Cierra modal -->
+
+
+          <button type="submit" form="formulario1" class="btn btn-primary" id="finCompra">Finalizar Compra</button>
+
+        </div>
+      </div>
     </div>
-    
-      
+
+
   </main>
   <footer class="text-muted">
     <div class="container">
