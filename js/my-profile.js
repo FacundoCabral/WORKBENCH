@@ -8,6 +8,7 @@ let nombreIngresado;
 let nombreIngresado2;
 let apellidoIngresado;
 let apellidoIngresado2;
+let file;
 
 
 
@@ -27,6 +28,7 @@ function guardarDatos() {
     primerApellido=document.getElementById("primerApellido").value;
     segundoApellido=document.getElementById("segundoApellido").value;
     telContacto=document.getElementById("telContacto").value;
+    file=document.getElementById("file").value;
 
     if (primerNombre !== "" && primerApellido !== "") {
     localStorage.setItem("primerNombre",primerNombre);
@@ -34,6 +36,9 @@ function guardarDatos() {
     localStorage.setItem("primerApellido",primerApellido);
     localStorage.setItem("segundoApellido",segundoApellido);
     localStorage.setItem("telContacto",telContacto);
+    localStorage.setItem("file",file);
+
+    
 
 
 }else{alert("Debe completar los campos obligatorios(*)")}
@@ -47,14 +52,18 @@ apellidoIngresado=localStorage.getItem("primerApellido");
 apellidoIngresado2=localStorage.getItem("segundoApellido");  
 nombreIngresado2=localStorage.getItem("segundoNombre");
 telContacto=localStorage.getItem("telContacto"); 
+file=localStorage.getItem("file"); 
+
 
 document.getElementById("primerNombre").value=nombreIngresado;
 document.getElementById("primerApellido").value=apellidoIngresado;  
 
-if (apellidoIngresado2!=="" || nombreIngresado2!=="" || telContacto!=="") {
+if (apellidoIngresado2!=="" || nombreIngresado2!=="" || telContacto!==""|| file!=="") {
 document.getElementById("segundoNombre").value=nombreIngresado2;
 document.getElementById("segundoApellido").value=apellidoIngresado2;
 document.getElementById("telContacto").value=telContacto;
+/* document.getElementById("imagenPerfil").setAttribute("src",file); */
+
 
 }
 
@@ -72,3 +81,29 @@ postDatos()
 
 
 })
+
+
+function codificadorImagen() {
+   
+
+    let fileSeleccionado = document.getElementById("file").files;
+    
+    let imagenSeleccionada=fileSeleccionado[0]
+
+      let fileReader = new FileReader();
+
+      fileReader.onload = function(fileLoadedEvent) {
+        let srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+        let newImage = document.createElement('img');
+
+        newImage.src = srcData;
+
+        console.log(newImage);
+
+        document.getElementById("traerImg").innerHTML =newImage.outerHTML;
+    }
+        
+        fileReader.readAsDataURL(imagenSeleccionada);
+    
+    }

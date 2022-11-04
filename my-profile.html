@@ -52,9 +52,17 @@
   </nav>
   <main>
     <div class="container">
-      <h2 class="tituloPerfil">Perfil</h2>
-      <hr>
-      
+      <div class="row">
+        <div class="col-8">
+          <h2 class="tituloPerfil">Perfil</h2>
+        </div>
+          <div class="col-4">
+            <div class="col-3 imagenPerfil" id="traerImg">
+            <img class="imagenPerfil" src="/img/img_perfil.png" id="imagenPerfil">
+          </div>
+        </div>
+      <hr> 
+      </div>
       <div class="row">
       <div class="col-6 elementosPerfil">Primer Nombre*<br>
         <input class="elementosPerfil col-10" type="text" id="primerNombre"></div>
@@ -70,6 +78,11 @@
     <div class="row">
       <div class="col-6 elementosPerfil bottom30">Email*<br>
         <input class="elementosPerfil col-10 "  type="text" id="inputEmail" value=""></div>
+
+      
+      <div class="col-6 elementosPerfil bottom30" id="divperfil">Imágen de Perfil<br>
+        <input class="elementosPerfil col-10 " onchange="codificadorImagen()" id="file" type="file"></div>
+        
       <div class="col-6 elementosPerfil bottom30">Teléfono Contacto<br>
         <input class="elementosPerfil col-10 " id="telContacto" type="number"></div>
       <hr>

@@ -1,6 +1,10 @@
 //Le asignamos id="emailUser" , id="buttonLogin" e id="cn" al div del html, xa poder usarlo con DOM 
 
 document.addEventListener("DOMContentLoaded",function(){ //Esto lo hacemos para que si algún elemento tiene async o algo raro , no tener problemas.
+    
+    
+    
+    
     document.getElementById("buttonLogin").addEventListener("click",function(){
 
 let Email = document.getElementById("emailUser").value;

@@ -291,3 +291,7 @@ a.custom-card:hover {
 .bottom30{
   padding-bottom: 30px;
 }
+.imagenPerfil{
+  width: 100px;
+  height: 100px;
+}
