@@ -52,27 +52,29 @@
   </nav>
   <main>
     <div class="container">
-      <h2>Pefil</h2>
+      <h2 class="tituloPerfil">Perfil</h2>
       <hr>
-      <form id="formulario1">
+      
       <div class="row">
-      <div class="col-3">Primer Nombre<input type="text"></div>
-      <div class="col"></div>
-      <div class="col-3">segundo Nombre<input type="text"></div>
+      <div class="col-6 elementosPerfil">Primer Nombre*<br>
+        <input class="elementosPerfil col-10" type="text" id="primerNombre"></div>
+      <div class="col-6 elementosPerfil">Segundo Nombre<br>
+        <input class="elementosPerfil col-10" type="text" id="segundoNombre"></div>
     </div>
     <div class="row">
-      <div class="col-3">Primer Apellido<input type="text"></div>
-      <div class="col"></div>
-      <div class="col-3">segundo Apellido<input type="text"></div>
+      <div class="col-6 elementosPerfil">Primer Apellido*<br>
+        <input class="elementosPerfil col-10" type="text" id="primerApellido"></div>
+      <div class="col-6 elementosPerfil">Segundo Apellido<br>
+        <input class="elementosPerfil col-10" type="text" id="segundoApellido"></div>
     </div>
     <div class="row">
-      <div class="col-3">Email<input type="text"></div>
-      <div class="col"></div>
-      <div class="col-3">Teléfono Contacto<input type="text"></div>
+      <div class="col-6 elementosPerfil bottom30">Email*<br>
+        <input class="elementosPerfil col-10 "  type="text" id="inputEmail" value=""></div>
+      <div class="col-6 elementosPerfil bottom30">Teléfono Contacto<br>
+        <input class="elementosPerfil col-10 " id="telContacto" type="number"></div>
       <hr>
-      <button type="submit" form="formulario1">Guardar Cambios</button>
+      <button type="button" id="botonCambios">Guardar Cambios</button>
     </div>
-  </form>
 
     </div>
   </main>

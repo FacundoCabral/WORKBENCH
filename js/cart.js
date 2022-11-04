@@ -4,7 +4,6 @@ let itemsDefault = [];
 let iD = localStorage.getItem("idObjeto");
 let arrayCompras;
 let idsUsadas = [];
-/* let y; */
 let id;
 let sumaTotal;
 let vaalor;
@@ -79,40 +78,14 @@ function mostrarCostoEnvio() {
 
         total();
 
-    document.getElementById("conteinerItems").addEventListener("change",()=>{
-
- eleccionUser = 5 / 100;
-    costoEnvio = sumaSubtotales * eleccionUser;
-    console.log(costoEnvio);
-    document.getElementById("costoEnvio").innerHTML = `USD ${costoEnvio}`;
-    total();
-
-    document.addEventListener("change", () => {
-        if (document.getElementById("1").checked) {
-            eleccionUser = 15 / 100
-        } else if (document.getElementById("2").checked) { eleccionUser = 7 / 100; }
-        else { eleccionUser = 5 / 100 }
-
-        console.log("ELECCIONUSER---------->", eleccionUser);
-
-        costoEnvio = sumaSubtotales * eleccionUser; //Elija el user * subtotal
-        console.log("costoEnvio---------->", costoEnvio);
-
-
-        document.getElementById("costoEnvio").innerHTML = `USD ${costoEnvio}`;
-
-        total();
-
-    })})
-   
 
     })//Cierra el addEvent
 }//Cierra la function
+
+
 function muestraCostos() {
     mostrarSubtotal()
     mostrarCostoEnvio()
-
-
 }
 
 function total() {
