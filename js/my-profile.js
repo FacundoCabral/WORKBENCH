@@ -9,6 +9,7 @@ let nombreIngresado2;
 let apellidoIngresado;
 let apellidoIngresado2;
 let file;
+let imagen= localStorage.getItem("imagenCodificada");
 
 
 
@@ -20,6 +21,9 @@ function debeEstarLoagueado() {
 
 function valoresDefault() {
    document.getElementById("inputEmail").value=userMail
+   if (imagen !==null) {
+    document.getElementById("traerImg").innerHTML=imagen
+   }
 }
 
 function guardarDatos() {
@@ -93,6 +97,7 @@ function codificadorImagen() {
       let fileReader = new FileReader();
 
       fileReader.onload = function(fileLoadedEvent) {
+
         let srcData = fileLoadedEvent.target.result; // <--- data: base64
 
         let newImage = document.createElement('img');
@@ -101,7 +106,12 @@ function codificadorImagen() {
 
         console.log(newImage);
 
+        localStorage.setItem("imagenCodificada",newImage.outerHTML)
+
         document.getElementById("traerImg").innerHTML =newImage.outerHTML;
+
+        console.log(newImage.outerHTML);
+
     }
         
         fileReader.readAsDataURL(imagenSeleccionada);
