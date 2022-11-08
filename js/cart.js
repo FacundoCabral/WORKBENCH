@@ -37,27 +37,36 @@ else {
 let costoEnvio; // Subir a donde las variables
 let totalCompra;
 let eleccionUser;
-let subtotalisimo
-
+let valores=[]; //Ultima variable q agrego
+let precios; //Ultima variable q agrego
+let subtotalisimo;
  
 function mostrarSubtotal(id) {
-  
+    calcularValoresUltima()
 
-    document.getElementById("subtotal").innerHTML = `USD ${sumaSubtotales}`
-
-    for (const id of arrayIds) {
-        subtotalisimo+= parseInt(document.getElementById(`columnaSubtotal${id}`).title); 
-    console.log("ESto es subtotalisimo",subtotalisimo);
-    }
-
-    
+    document.getElementById("subtotal").innerHTML = `USD ${subtotalisimo}`// AGREGO SUBTITALISIMO
+/* 
+    for (id of arrayIds) {
+      valores.push(parseInt(document.getElementById(`columnaSubtotal${id}`).title)); 
+      
+    console.log("Esto es valores",valores);
+    } */
 
   }
+
+  function calcularValoresUltima() {
+        subtotalisimo=0;
+    for (i=0; i < arrayIds.length; i++) {
+        precios=parseInt(document.getElementsByName(`${i}`)[0].title);     
+       subtotalisimo+=precios
+       console.log(subtotalisimo);
+       
+  }}
 
 
 function mostrarCostoEnvio() {
     eleccionUser = 5 / 100;
-    costoEnvio = sumaSubtotales * eleccionUser;
+    costoEnvio = subtotalisimo * eleccionUser;//AGREGO SUBTOTALISIMO
     console.log(costoEnvio);
     document.getElementById("costoEnvio").innerHTML = `USD ${costoEnvio}`;
     total();
@@ -89,8 +98,8 @@ function muestraCostos() {
 }
 
 function total() {
-    totalCompra = costoEnvio + sumaSubtotales;
-    console.log(totalCompra);
+    totalCompra = costoEnvio + subtotalisimo;  // REVISAR ESTA SUMA SI HAY ERROR
+
     document.getElementById("Total").innerHTML = `USD ${totalCompra}`;
 
 }
@@ -240,9 +249,9 @@ function agregarHtml() { //Función que agrega el producto Default
         <tr>
          <th><img class="imagenesTabla rounded mx-auto d-block" src=${itemsDefault[i].articles[i].image}></th>
          <td class="text-center"><p class="centrado">${itemsDefault[i].articles[i].name}</p></td>
-         <td class="text-center"><p class="centrado">USD ${itemsDefault[i].articles[i].unitCost}</p></td> 
+         <td class="text-center"><p class="centrado" >USD ${itemsDefault[i].articles[i].unitCost}</p></td> 
          <td class="text-center"><input onkeyup="agregarCantidad(this.value,${itemsDefault[0].articles[0].id},${itemsDefault[0].articles[0].unitCost},'${itemsDefault[0].articles[0].currency}')" class="input text-center" id="cantidadItems${id}" type="number" placeholder=1 value=1 min=1 step="1"></td>
-         <td  class="text-center"><p class="centrado fw-bold" id="columnaSubtotal${id}">USD </p></td>`
+         <td  class="text-center"><p class="centrado fw-bold" name= 0 title="${itemsDefault[0].articles[0].unitCost}" id="columnaSubtotal${id}">USD </p></td>`
 
         document.getElementById(`contenedorItems`).innerHTML = agregarAHtml;//agregamos lo q tenemos hasta ahora al html
         subTotal = parseInt(document.getElementById(`cantidadItems${id}`).value) * (subTotal);//Calculamos el subtotal
@@ -327,7 +336,7 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
         <span id="currency${id}" title=${arrayCompras[4]}></span>
          <td class="text-center"><input onkeyup="agregarCantidad(this.value,${id},${arrayCompras[2]},'${arrayCompras[4]}')" class="input text-center" id="cantidadItems${id}" type="number" placeholder=1 value=1 min="1" step="1"></td>
          
-         <td  class="text-center"><p class="centrado fw-bold" id="columnaSubtotal${id}" title=${arrayCompras[2]}>${arrayCompras[4]} </p></td>` //Columa Subtotal
+         <td  class="text-center"><p class="centrado fw-bold" name="${i}" id="columnaSubtotal${id}" title=${arrayCompras[2]}>${arrayCompras[4]} </p></td>` //Columa Subtotal
 
             document.getElementById("contenedorItems").innerHTML += agregarAHtml1; //Agregamos los divs al html
             mintotal = parseInt(document.getElementById(`cantidadItems${id}`).value) * (subTotal3);//Calcula el subtotal Default
