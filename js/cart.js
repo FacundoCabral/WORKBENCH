@@ -45,12 +45,7 @@ function mostrarSubtotal(id) {
     calcularValoresUltima()
 
     document.getElementById("subtotal").innerHTML = `USD ${subtotalisimo}`// AGREGO SUBTITALISIMO
-/* 
-    for (id of arrayIds) {
-      valores.push(parseInt(document.getElementById(`columnaSubtotal${id}`).title)); 
-      
-    console.log("Esto es valores",valores);
-    } */
+
 
   }
 
@@ -263,14 +258,15 @@ function agregarHtml() { //Función que agrega el producto Default
          mooneda=itemsDefault[i].articles[i].currency;
 
         let agregarAHtml = `
-        <tr>
+        <tr id="${id}tabla">
          <th><img class="imagenesTabla rounded mx-auto d-block" src=${itemsDefault[i].articles[i].image}></th>
          <td class="text-center"><p class="centrado">${itemsDefault[i].articles[i].name}</p></td>
          <td class="text-center"><p class="centrado" >USD ${itemsDefault[i].articles[i].unitCost}</p></td> 
          <td class="text-center"><input onkeyup="agregarCantidad(this.value,${itemsDefault[0].articles[0].id},${itemsDefault[0].articles[0].unitCost},'${itemsDefault[0].articles[0].currency}')" class="input text-center" id="cantidadItems${id}" type="number" placeholder=1 value=1 min=1 step="1"></td>
          <td  class="text-center"><p class="centrado fw-bold"  name= 0 title="${itemsDefault[0].articles[0].unitCost}" id="columnaSubtotal${id}">USD </p>
          <span id="0" title="${mooneda}"></span>
-         </td>`
+         </td>
+         <td class="pt-3"><button type="button" onclick="borrarElemento(${id})" class="btnBorrar"></button></td>`
 
         document.getElementById(`contenedorItems`).innerHTML = agregarAHtml;//agregamos lo q tenemos hasta ahora al html
         subTotal = parseInt(document.getElementById(`cantidadItems${id}`).value) * (subTotal);//Calculamos el subtotal
@@ -348,7 +344,7 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
 
 
             let agregarAHtml1 = `
-        <tr>
+        <tr id="${id}tabla">
          <th><img class="imagenesTabla rounded mx-auto d-block" src=${arrayCompras[3]}></th>
          <td class="text-center"><p class="centrado">${arrayCompras[1]}</p></td>
          <td class="text-center"><p class="centrado">${arrayCompras[4]} ${arrayCompras[2]}</p></td> 
@@ -357,7 +353,8 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
          
          <td  class="text-center"><p class="centrado fw-bold" name="${i}" id="columnaSubtotal${id}" title=${arrayCompras[2]}>${arrayCompras[4]} </p>
          <span id="${spanid}" title="${moenda}"></span>
-         </td>` //Columa Subtotal
+         </td> 
+         <td class="pt-3"><button type="button" onclick="borrarElemento(${id})" class="btnBorrar"></button></td>`
 
             document.getElementById("contenedorItems").innerHTML += agregarAHtml1; //Agregamos los divs al html
             mintotal = parseInt(document.getElementById(`cantidadItems${id}`).value) * (subTotal3);//Calcula el subtotal Default
@@ -372,13 +369,29 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
     }
 }
 
+function borrarElemento(nid) {
 
+    calcularValoresUltima()
+
+     subtotalisimo=subtotalisimo-parseInt(document.getElementById(`columnaSubtotal${nid}`).title)
+
+     document.getElementById("subtotal").innerHTML = `USD ${subtotalisimo}`
+
+     mostrarCostoEnvio()
+
+
+
+    console.log(`${nid}tabla`);
+
+     document.getElementById(`${nid}tabla`).innerHTML=""
+
+     
+   
+    
+}
 
 document.addEventListener("DOMContentLoaded", (e) => {
     traerItems()
-
-
-
 });
 
 

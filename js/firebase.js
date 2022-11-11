@@ -1,12 +1,7 @@
-// Import the functions you need from the SDKs you need
-/* import { log } from "console"; */
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAV98k2Y79OAx6fVQUZrilykaj7r4R0kS8",
   authDomain: "e-mercado-fc.firebaseapp.com",

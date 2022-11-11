@@ -42,5 +42,7 @@ await signInWithPopup(auth,provider)
 
 })
 
+// Creo q no funciona x cross origin , debo mirar si en casaa sigue el error
+
 
 

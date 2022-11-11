@@ -295,3 +295,13 @@ a.custom-card:hover {
   width: 100px;
   height: 100px;
 }
+.btnBorrar{
+  background-image: url("https://cdn-icons-png.flaticon.com/512/5688/5688497.png");
+  background-size: cover;
+ border: none;
+ padding: 20px;
+ width: 40px;
+ border-radius: 900px;
+ height: 40px;
+ cursor: pointer;
+}
