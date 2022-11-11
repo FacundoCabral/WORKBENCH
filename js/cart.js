@@ -17,6 +17,7 @@ let subTotalUltimo;
 let sumaSubtotales=15200;
 let arraysumaSubtotales=[15200];
 let subTotal4;
+let idsFiltrados;
 let subTotal;
 let subTotal3;//Es el subtotal literal del producto, es decir lo que cuesta 1 unidad(Xa las ids nuevas)
 let subTotal2;//Es el subtotal literal del producto, es decir lo que cuesta 1 unidad(Xa las ids repetidas)
@@ -25,7 +26,7 @@ let ids;//Creo el array ids, al cual le pasaremos todos los ids que recibamos(Co
 ids = iD;
 console.log(ids);
 
-if (ids == null) { }
+if (ids == null) { }// Esto lo hago para filtrar las ids q me llegan 
 else {
     let agregar = [localStorage.getItem("ids")]
     agregar.push(ids)
@@ -55,6 +56,7 @@ function mostrarSubtotal(id) {
         
         for (i=0; i < arrayIds.length; i++) {
 
+console.log("ESTA ES LA I Q PASA",i);
         if (document.getElementById(`${i}`).title=="UYU") {
             
             precios=(Math.round(parseInt(document.getElementsByName(`${i}`)[0].title))/41);  console.log(precios);   
@@ -377,11 +379,15 @@ function borrarElemento(nid) {
 
      document.getElementById("subtotal").innerHTML = `USD ${subtotalisimo}`
 
-     mostrarCostoEnvio()
+arrayIds=arrayIds.filter((items)=>items!==nid);//Podría probar a modificar arrayIds, en vez de crear otro array=idsFiltrados
+
+localStorage.removeItem("ids");
+localStorage.setItem("ids",arrayIds)
+
+mostrarCostoEnvio()
 
 
-
-    console.log(`${nid}tabla`);
+console.log(`${nid}tabla`);
 
      document.getElementById(`${nid}tabla`).innerHTML=""
 
