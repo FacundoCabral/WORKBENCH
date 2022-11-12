@@ -22,7 +22,6 @@ let precios; //Se guarda acá el precio del item en dólares(se hace la conversi
 let subTotalAntesCostoEnvio;//Se guarda el subTotal antes de sumarle el costo de envío
 let ids;//Creo el array ids, al cual le pasaremos todos los ids que recibamos(Con el objetivo de poder comparar nuevos y viejos) 
 ids = iD;
-console.log(ids);
 
 
 function traerIds() {
@@ -40,9 +39,10 @@ else {
 
  
 function mostrarSubtotal(id) {
+
     calcularValoresUltima()
 
-    document.getElementById("subtotal").innerHTML = `USD ${subTotalAntesCostoEnvio}`// AGREGO SUBTITALISIMO
+    document.getElementById("subtotal").innerHTML = `USD ${subTotalAntesCostoEnvio}`
 
 
   }
@@ -53,27 +53,28 @@ function mostrarSubtotal(id) {
         
         for (i=0; i < arrayIds.length; i++) {
 
-console.log("ESTA ES LA I Q PASA",i);
 
        if(document.getElementById(`${i}`)== null){
 
        } 
        else if (document.getElementById(`${i}`).title=="UYU") {
-            console.log("ENTRA AL IF");
-            precios=(Math.round(parseInt(document.getElementsByName(`${i}`)[0].title))/41);  console.log(precios);   
+
+            precios=(Math.round(parseInt(document.getElementsByName(`${i}`)[0].title))/41);
+
             subTotalAntesCostoEnvio+=precios
 
         }else if (document.getElementsByName(`${i}`)[0] !== undefined){
-            console.log("ENTRA AL IF ELSE");
-     precios=parseInt(document.getElementsByName(`${i}`)[0].title);     
+
+     precios=parseInt(document.getElementsByName(`${i}`)[0].title);  
+
        subTotalAntesCostoEnvio+=precios
-       console.log(subTotalAntesCostoEnvio);
-      
+
        }else{
-        console.log("ENTRA AL ELSE");
-        precios=parseInt(document.getElementsByName(`${i++}`)[0].title);     
+
+        precios=parseInt(document.getElementsByName(`${i++}`)[0].title); 
+
        subTotalAntesCostoEnvio+=precios
-       console.log(subTotalAntesCostoEnvio);
+
        }
   }
 
@@ -81,39 +82,46 @@ console.log("ESTA ES LA I Q PASA",i);
 
 
 function mostrarCostoEnvio() {
+
     eleccionUser = 5 / 100;
-    costoEnvio = subTotalAntesCostoEnvio * eleccionUser;//AGREGO subTotalAntesCostoEnvio
-    console.log(costoEnvio);
+
+    costoEnvio = subTotalAntesCostoEnvio * eleccionUser;
+
     document.getElementById("costoEnvio").innerHTML = `USD ${costoEnvio}`;
+
     total();
 
     document.addEventListener("change", () => {
+
         if (document.getElementById("t1").checked) {
+
             eleccionUser = 15 / 100
+
         } else if (document.getElementById("t2").checked) { eleccionUser = 7 / 100; }
+
         else { eleccionUser = 5 / 100 }
 
-        console.log("ELECCIONUSER---------->", eleccionUser);
 
-        costoEnvio = subTotalAntesCostoEnvio * eleccionUser; //Elija el user * subtotal
-        console.log("costoEnvio---------->", costoEnvio);
-
+        costoEnvio = subTotalAntesCostoEnvio * eleccionUser; 
 
         document.getElementById("costoEnvio").innerHTML = `USD ${costoEnvio}`;
 
         total();
 
 
-    })//Cierra el addEvent
-}//Cierra la function
+    })
+}
 
 
 function muestraCostos() {
+
     mostrarSubtotal()
+
     mostrarCostoEnvio()
 }
 
 function total() {
+
     totalCompra = costoEnvio + subTotalAntesCostoEnvio; 
 
     document.getElementById("Total").innerHTML = `USD ${totalCompra}`;
@@ -146,8 +154,11 @@ formulario.addEventListener("submit", (e) => {
 })
 
 function validacionTipoEnvio() {
+
     if ((document.getElementById("t1").checked || document.getElementById("t2").checked || document.getElementById("t3").checked)) {
+        
         document.getElementById("t3").setCustomValidity('')
+
     }
 
 }
@@ -156,28 +167,36 @@ function formaDePago() {
     document.getElementById('staticBackdrop').classList.add('was-validated');
 
     let tarjeta=document.getElementById("tarjetaCredito").checked
+    
     let transferencia=document.getElementById("transferencia").checked
 
  if(tarjeta){
-        console.log("entra bien a tarjeta");
+
         document.getElementById("seleccion").innerHTML="Tarjeta de Crédito"
+        
         document.getElementById("agregarError").innerHTML=``
+        
         document.getElementById("numeroCuenta").setAttribute("disabled", "");
+        
         document.getElementById("transferencia").setAttribute("disabled", "");}
 
      if(transferencia){
 
-        console.log("entra bien a transferencia");
-
           document.getElementById("seleccion").innerHTML=`Transferencia Bancaria`
+          
           document.getElementById("agregarError").innerHTML=``
+          
           document.getElementById("vencimiento").setAttribute("disabled","");
+          
           document.getElementById("numeroTarjeta").setAttribute("disabled", "");
+          
           document.getElementById("tarjetaCredito").setAttribute("disabled", "");
+          
           document.getElementById("codSeguridad").setAttribute("disabled","");
 }
 
  if (!(tarjeta || transferencia)) {
+
     document.getElementById("agregarError").innerHTML=`<p style="color:red">Debe seleccionar una forma de pago</p>`
  } 
 }  
@@ -195,10 +214,13 @@ function traerItems() {
 
 
 function agregarCantidad(valor, id, subTotal, moneda,spanid) {//función xa mostrar valor del resto de objetos
+
    spanid=spanid;
-    console.log("Este es el sub-total que recibe como parámetro---------------------", subTotal); 
+
     if (valor > 1) {
+
         nuevaCantidad = parseInt(valor);
+
         document.getElementById(`cantidadItems${id}`).value = nuevaCantidad;
 
         SubTotal(valor, id, subTotal, moneda,spanid);
@@ -213,22 +235,27 @@ function SubTotal(valor, id, subTotal, moneda,spanid) {  //Creo la función para
         subTotalItem=subTotal //Guarda el subtotal del item que se modifica
 
         if (moneda=="UYU") {
+            
             subTotalItem=Math.round(subTotal/41)
-            console.log(document.getElementById(spanid).title);
-             document.getElementById(spanid).title="USD"
-             moneda="USD"
+            
+            document.getElementById(spanid).title="USD"
+            
+            moneda="USD"
         }
 
         subTotalUltimo = parseInt(valor) * subTotalItem;
 
         localStorage.setItem("subTotalUltimo",`${subTotalUltimo}`)
    
-        console.log("PASA X ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", subTotalUltimo); 
         arraysumaSubtotales.push(`${subTotalUltimo}`)
+
         document.getElementById(`cantidadItems${id}`).value.innerHTML++;
+        
         document.getElementById(`columnaSubtotal${id}`).title = `${subTotalUltimo}`;
-         muestraCostos()
-         document.getElementById(`columnaSubtotal${id}`).innerHTML = `${moneda} ${subTotalUltimo}`;
+        
+        muestraCostos()
+        
+        document.getElementById(`columnaSubtotal${id}`).innerHTML = `${moneda} ${subTotalUltimo}`;
 }
      
 
@@ -243,9 +270,8 @@ function agregarHtml() { //Función que agrega el producto Default
 
     for (let i = 0; i < itemsDefault.length; i++) {
 
-
-
          subTotalDefault = itemsDefault[i].articles[i].unitCost;
+         
          mooneda=itemsDefault[i].articles[i].currency;
 
         let agregarAHtml = `
@@ -260,9 +286,11 @@ function agregarHtml() { //Función que agrega el producto Default
          <td class="pt-3"><button type="button" onclick="borrarElemento(${id})" class="btnBorrar"></button></td>`
 
         document.getElementById(`contenedorItems`).innerHTML = agregarAHtml;//agregamos lo q tenemos hasta ahora al html
+        
         subTotalDefault = parseInt(document.getElementById(`cantidadItems${id}`).value) * (subTotalDefault);//Calculamos el subTotal
 
         let agregarAHtml2 = `${subTotalDefault}` //Definimos una variable con el valor q calculamos el subtotal
+        
         document.getElementById(`columnaSubtotal${id}`).innerHTML += agregarAHtml2 + `</tr>`;//Agregamos a columnaSubtotal la variable anterior q tiene calculado el subtotal
     }
 }
@@ -272,22 +300,23 @@ function agregarHtml() { //Función que agrega el producto Default
 function agregarProductos() {//Función que agrega los productos cuando el user da comprar
     
     let valoresDefault = [itemsDefault[0].articles[0].id, itemsDefault[0].articles[0].name, itemsDefault[0].articles[0].unitCost, itemsDefault[0].articles[0].image, itemsDefault[0].articles[0].currency]
+    
     localStorage.setItem(`${itemsDefault[0].articles[0].id}`, valoresDefault)
 
     let stringComprado = localStorage.getItem("ids");// Se puede hacer más práctico con JSON.parse
+    
     arrayIds = stringComprado.split(","); //arrayIds ya es un array con todas las ids de los objetos
 
     for (let i = 1; i < arrayIds.length; i++) {  //El if debe ir dentro del for, porque el mismo es el que hace variar las ids
 
-        console.log("itera  =======>", i);
-
         if (arrayIds[i] == 50924) {
-            console.log("ES EL ITEM DEFAULT------------------------------------------------------------------");
+
             document.getElementById(`cantidadItems50924`).value++;
-            console.log("ESTE ES EL VALOR DE CANTIDAD DE ITEMS -----------------", document.getElementById(`cantidadItems50924`).value);
+           
             arraysumaSubtotales.push(`${itemsDefault[0].articles[0].unitCost}`);
 
             subTotalDefaultMasAgregado = itemsDefault[0].articles[0].unitCost
+
             let moneda = itemsDefault[0].articles[0].currency
 
             SubTotal(document.getElementById(`cantidadItems50924`).value, 50924, subTotalDefaultMasAgregado, moneda)// Devuelve subTotalUltimo
@@ -295,17 +324,17 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
         } else if (idsUsadas.includes(arrayIds[i])) {//ES UNA ID USADA
 
             let id = arrayIds[i];
+            
             subTotalIdsRepetidas = parseInt(document.getElementById(`columnaSubtotal${id}`).title)//literalemnete el valor del objeto
+            
             let moneda = document.getElementById(`currency${id}`).title
+            
             arraysumaSubtotales.push(`${subTotalIdsRepetidas}`);
-            console.log(arrayCompras[0]);
-            console.log(id);
 
-            console.log("ES UNA ID USADA------------------------------------------------------------------");//Se le agrega 1 a cantidad
             document.getElementById(`cantidadItems${id}`).value++;
-                document.getElementById(`cantidadItems${id}`).value.innerHTML++; //Arregla el problema
+            
+            document.getElementById(`cantidadItems${id}`).value.innerHTML++; //Arregla el problema
 
-            console.log("ESTE ES EL VALOR DE CANTIDAD DE ITEMS -----------------", document.getElementById(`cantidadItems${id}`).value);
             SubTotal(document.getElementById(`cantidadItems${id}`).value, id, subTotalIdsRepetidas, moneda) //Llamamos a la función que calcula el subTotal
 
         } else { // IDS nueva
@@ -314,25 +343,22 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
 
             idsUsadas.push(arrayIds[i]); // Se agrega al array de ids
 
-            console.log("No Está repetida------------------------------------------------------------------");
             let stringCompras = localStorage.getItem(`${arrayIds[i]}`);//Queremos traer los datos del objeto con id=arrayIds[i],al traerlo del local, nos lo devuelve como un srting, xa volverlo array misma estrategia= split()
+           
             arrayCompras = stringCompras.split(",");//Al fin obtenemos el array con los datos del objeto
-            console.log("Este es el array de Compras:", arrayCompras);
-
+            
             id = arrayIds[i];
+            
             vaalor=1
+            
             subtotal=arrayCompras[2]
+            
             currencyIdsNuevas=arrayCompras[4]
-            console.log("ESTO ES currencyIdsNuevas",currencyIdsNuevas);
-
+            
             subTotalIdsNuevas = arrayCompras[2]
+            
             arraysumaSubtotales.push(`${subTotalIdsNuevas}`);
-
-
-
-            console.log("--------------------------****--------------", subTotalIdsNuevas)
-
-
+            
             let agregarAHtml1 = `
         <tr id="${id}tabla">
          <th><img class="imagenesTabla rounded mx-auto d-block" src=${arrayCompras[3]}></th>
@@ -348,7 +374,6 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
 
             document.getElementById("contenedorItems").innerHTML += agregarAHtml1; //Agregamos los divs al html
             mintotal = parseInt(document.getElementById(`cantidadItems${id}`).value) * (subTotalIdsNuevas);//Calcula el subtotal Default
-            console.log("cantidad================", document.getElementById(`cantidadItems${id}`).value);
             let agregarAHtml21 = `${mintotal}`
             document.getElementById(`columnaSubtotal${id}`).innerHTML += agregarAHtml21 + `</tr>`;
 
@@ -360,35 +385,27 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
 }
 
 function borrarElemento(nid) {
-console.log("PASA X ACA 1");
+
     calcularValoresUltima()
-    console.log("PASA X ACA 2");
 
      subTotalAntesCostoEnvio=subTotalAntesCostoEnvio-parseInt(document.getElementById(`columnaSubtotal${nid}`).title)
 
      document.getElementById("subtotal").innerHTML = `USD ${subTotalAntesCostoEnvio}`
-arrayIdsActualizado=[50924]
-arrayIdsActualizado+=arrayIds.filter((items)=>{parseInt(items)!==parseInt(nid)
-console.log(items);
-console.log(nid);
 
-console.log(parseInt(items)!==parseInt(nid));
+arrayIdsActualizado=[50924]
+
+arrayIdsActualizado+=arrayIds.filter((items)=>{parseInt(items)!==parseInt(nid)
+
 });
-console.log(arrayIdsActualizado);
+
 localStorage.removeItem("ids");
 localStorage.setItem("ids",arrayIdsActualizado)
 
 traerIds()
 mostrarCostoEnvio()
 
-
-console.log(`${nid}tabla`);
-
      document.getElementById(`${nid}tabla`).innerHTML=""
-
-     
-   
-    
+ 
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
