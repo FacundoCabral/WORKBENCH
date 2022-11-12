@@ -1,27 +1,25 @@
-let userId = 25801;
+let userId = 25801; 
 let url = `https://japceibal.github.io/emercado-api/user_cart/${userId}.json`;
 let itemsDefault = [];
 let iD = localStorage.getItem("idObjeto");
 let arrayCompras;
 let idsUsadas = [];
 let id;
-let sumaTotal;
-let vaalor;
 let subtotal;
-let moenda;
-let items={};
-let cantidad50924;
-let cantidad;
-let nuevaCantidad;// Variable que me guarda la nueva cantidad
-let subTotalUltimo;
-let sumaSubtotales=15200;
-let arraysumaSubtotales=[15200];
-let subTotal4;
-let idsFiltrados;
-let subTotal;
-let subTotal3;//Es el subtotal literal del producto, es decir lo que cuesta 1 unidad(Xa las ids nuevas)
-let subTotal2;//Es el subtotal literal del producto, es decir lo que cuesta 1 unidad(Xa las ids repetidas)
-let subTotal1;//Es el subtotal del item default cuando se le agregan más cantidades
+let currencyIdsNuevas;//Se usa como currency xa las ids nuevas
+let nuevaCantidad;// Variable que me guarda la nueva cantidad(cuando el usuario modifica la cantidad de productos que quiere)
+let subTotalUltimo;// Es el nuevo subtotal , resultante de los cambios de cantidad o más objetos
+let arraysumaSubtotales=[15200]; // Es el array que contiene la suma de los subtotales
+let subTotalItem;// Guarda el subtotal del item modificado
+let subTotalDefault;//Es el subtotal del item Default
+let subTotalIdsNuevas;//Es el subtotal literal del producto, es decir lo que cuesta 1 unidad(Xa las ids nuevas)
+let subTotalIdsRepetidas;//Es el subtotal literal del producto, es decir lo que cuesta 1 unidad(Xa las ids repetidas)
+let subTotalDefaultMasAgregado;//Es el subtotal del item default cuando se le agregan más cantidades
+let costoEnvio; //Se guarda el valor que tendrá el envío
+let totalCompra;// Se calcula el total de la compra(articulos + costo envío )
+let eleccionUser;//Acá se guarda la elección de método de envío. 
+let precios; //Se guarda acá el precio del item en dólares(se hace la conversión cuano es necesario)
+let subTotalAntesCostoEnvio;//Se guarda el subTotal antes de sumarle el costo de envío
 let ids;//Creo el array ids, al cual le pasaremos todos los ids que recibamos(Con el objetivo de poder comparar nuevos y viejos) 
 ids = iD;
 console.log(ids);
@@ -37,26 +35,21 @@ else {
 }
 
 
-/* Comienzo entrega 6 */
 
-let costoEnvio; // Subir a donde las variables
-let totalCompra;
-let eleccionUser;
-let valores=[]; //Ultima variable q agrego
-let precios; //Ultima variable q agrego
-let subtotalisimo;
+
+
  
 function mostrarSubtotal(id) {
     calcularValoresUltima()
 
-    document.getElementById("subtotal").innerHTML = `USD ${subtotalisimo}`// AGREGO SUBTITALISIMO
+    document.getElementById("subtotal").innerHTML = `USD ${subTotalAntesCostoEnvio}`// AGREGO SUBTITALISIMO
 
 
   }
 
   function calcularValoresUltima() {
 
-        subtotalisimo=0; 
+        subTotalAntesCostoEnvio=0; 
         
         for (i=0; i < arrayIds.length; i++) {
 
@@ -68,19 +61,19 @@ console.log("ESTA ES LA I Q PASA",i);
        else if (document.getElementById(`${i}`).title=="UYU") {
             console.log("ENTRA AL IF");
             precios=(Math.round(parseInt(document.getElementsByName(`${i}`)[0].title))/41);  console.log(precios);   
-            subtotalisimo+=precios
+            subTotalAntesCostoEnvio+=precios
 
         }else if (document.getElementsByName(`${i}`)[0] !== undefined){
             console.log("ENTRA AL IF ELSE");
      precios=parseInt(document.getElementsByName(`${i}`)[0].title);     
-       subtotalisimo+=precios
-       console.log(subtotalisimo);
+       subTotalAntesCostoEnvio+=precios
+       console.log(subTotalAntesCostoEnvio);
       
        }else{
         console.log("ENTRA AL ELSE");
         precios=parseInt(document.getElementsByName(`${i++}`)[0].title);     
-       subtotalisimo+=precios
-       console.log(subtotalisimo);
+       subTotalAntesCostoEnvio+=precios
+       console.log(subTotalAntesCostoEnvio);
        }
   }
 
@@ -89,7 +82,7 @@ console.log("ESTA ES LA I Q PASA",i);
 
 function mostrarCostoEnvio() {
     eleccionUser = 5 / 100;
-    costoEnvio = subtotalisimo * eleccionUser;//AGREGO SUBTOTALISIMO
+    costoEnvio = subTotalAntesCostoEnvio * eleccionUser;//AGREGO subTotalAntesCostoEnvio
     console.log(costoEnvio);
     document.getElementById("costoEnvio").innerHTML = `USD ${costoEnvio}`;
     total();
@@ -102,7 +95,7 @@ function mostrarCostoEnvio() {
 
         console.log("ELECCIONUSER---------->", eleccionUser);
 
-        costoEnvio = subtotalisimo * eleccionUser; //Elija el user * subtotal
+        costoEnvio = subTotalAntesCostoEnvio * eleccionUser; //Elija el user * subtotal
         console.log("costoEnvio---------->", costoEnvio);
 
 
@@ -121,7 +114,7 @@ function muestraCostos() {
 }
 
 function total() {
-    totalCompra = costoEnvio + subtotalisimo;  // REVISAR ESTA SUMA SI HAY ERROR
+    totalCompra = costoEnvio + subTotalAntesCostoEnvio; 
 
     document.getElementById("Total").innerHTML = `USD ${totalCompra}`;
 
@@ -200,20 +193,10 @@ function traerItems() {
         .then(muestraCostos)
 }
 
-/* document.getElementById("conteinerItems").addEventListener("change",()=>{
-agregarCantidad(vaalor,id,subtotal,moenda)
-}) */
 
 function agregarCantidad(valor, id, subTotal, moneda,spanid) {//función xa mostrar valor del resto de objetos
    spanid=spanid;
-    console.log("Este es el sub-total que recibe como parámetro---------------------", subTotal);
-   /*  vaalor=parseInt(document.getElementById(`cantidadItems${id}`).value)
-    subtotal=suubTotal;
-    moenda=mooneda,
- */
-   /*  console.log(moenda);
-    console.log(document.getElementById(`cantidadItems${id}`).value) */
-    
+    console.log("Este es el sub-total que recibe como parámetro---------------------", subTotal); 
     if (valor > 1) {
         nuevaCantidad = parseInt(valor);
         document.getElementById(`cantidadItems${id}`).value = nuevaCantidad;
@@ -227,16 +210,16 @@ function SubTotal(valor, id, subTotal, moneda,spanid) {  //Creo la función para
    
     if (valor >= 1) {
 
-        subTotal4=subTotal
+        subTotalItem=subTotal //Guarda el subtotal del item que se modifica
 
         if (moneda=="UYU") {
-            subTotal4=Math.round(subTotal/41)
+            subTotalItem=Math.round(subTotal/41)
             console.log(document.getElementById(spanid).title);
              document.getElementById(spanid).title="USD"
              moneda="USD"
         }
 
-        subTotalUltimo = parseInt(valor) * subTotal4;
+        subTotalUltimo = parseInt(valor) * subTotalItem;
 
         localStorage.setItem("subTotalUltimo",`${subTotalUltimo}`)
    
@@ -262,7 +245,7 @@ function agregarHtml() { //Función que agrega el producto Default
 
 
 
-         subTotal = itemsDefault[i].articles[i].unitCost;
+         subTotalDefault = itemsDefault[i].articles[i].unitCost;
          mooneda=itemsDefault[i].articles[i].currency;
 
         let agregarAHtml = `
@@ -277,9 +260,9 @@ function agregarHtml() { //Función que agrega el producto Default
          <td class="pt-3"><button type="button" onclick="borrarElemento(${id})" class="btnBorrar"></button></td>`
 
         document.getElementById(`contenedorItems`).innerHTML = agregarAHtml;//agregamos lo q tenemos hasta ahora al html
-        subTotal = parseInt(document.getElementById(`cantidadItems${id}`).value) * (subTotal);//Calculamos el subtotal
+        subTotalDefault = parseInt(document.getElementById(`cantidadItems${id}`).value) * (subTotalDefault);//Calculamos el subTotal
 
-        let agregarAHtml2 = `${subTotal}` //Definimos una variable con el valor q calculamos el subtotal
+        let agregarAHtml2 = `${subTotalDefault}` //Definimos una variable con el valor q calculamos el subtotal
         document.getElementById(`columnaSubtotal${id}`).innerHTML += agregarAHtml2 + `</tr>`;//Agregamos a columnaSubtotal la variable anterior q tiene calculado el subtotal
     }
 }
@@ -304,17 +287,17 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
             console.log("ESTE ES EL VALOR DE CANTIDAD DE ITEMS -----------------", document.getElementById(`cantidadItems50924`).value);
             arraysumaSubtotales.push(`${itemsDefault[0].articles[0].unitCost}`);
 
-            subTotal1 = itemsDefault[0].articles[0].unitCost
+            subTotalDefaultMasAgregado = itemsDefault[0].articles[0].unitCost
             let moneda = itemsDefault[0].articles[0].currency
 
-            SubTotal(document.getElementById(`cantidadItems50924`).value, 50924, subTotal1, moneda)// Devuelve subTotalUltimo
+            SubTotal(document.getElementById(`cantidadItems50924`).value, 50924, subTotalDefaultMasAgregado, moneda)// Devuelve subTotalUltimo
 
         } else if (idsUsadas.includes(arrayIds[i])) {//ES UNA ID USADA
 
             let id = arrayIds[i];
-            subTotal2 = parseInt(document.getElementById(`columnaSubtotal${id}`).title)//literalemnete el valor del objeto
+            subTotalIdsRepetidas = parseInt(document.getElementById(`columnaSubtotal${id}`).title)//literalemnete el valor del objeto
             let moneda = document.getElementById(`currency${id}`).title
-            arraysumaSubtotales.push(`${subTotal2}`);
+            arraysumaSubtotales.push(`${subTotalIdsRepetidas}`);
             console.log(arrayCompras[0]);
             console.log(id);
 
@@ -323,9 +306,7 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
                 document.getElementById(`cantidadItems${id}`).value.innerHTML++; //Arregla el problema
 
             console.log("ESTE ES EL VALOR DE CANTIDAD DE ITEMS -----------------", document.getElementById(`cantidadItems${id}`).value);
-
-            /*  document.getElementById(`cantidadItems${id}`).value.innerHTML=document.getElementById(`cantidadItems${id}`).value; */
-            SubTotal(document.getElementById(`cantidadItems${id}`).value, id, subTotal2, moneda) //Llamamos a la función que calcula el subTotal
+            SubTotal(document.getElementById(`cantidadItems${id}`).value, id, subTotalIdsRepetidas, moneda) //Llamamos a la función que calcula el subTotal
 
         } else { // IDS nueva
 
@@ -341,14 +322,15 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
             id = arrayIds[i];
             vaalor=1
             subtotal=arrayCompras[2]
-            moenda=arrayCompras[4]
+            currencyIdsNuevas=arrayCompras[4]
+            console.log("ESTO ES currencyIdsNuevas",currencyIdsNuevas);
 
-            subTotal3 = arrayCompras[2]
-            arraysumaSubtotales.push(`${subTotal3}`);
+            subTotalIdsNuevas = arrayCompras[2]
+            arraysumaSubtotales.push(`${subTotalIdsNuevas}`);
 
 
 
-            console.log("--------------------------****--------------", subTotal3)
+            console.log("--------------------------****--------------", subTotalIdsNuevas)
 
 
             let agregarAHtml1 = `
@@ -360,12 +342,12 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
          <td class="text-center"><input onkeyup="agregarCantidad(this.value,${id},${arrayCompras[2]},'${arrayCompras[4]}',${spanid})" class="input text-center" id="cantidadItems${id}" type="number" placeholder=1 value=1 min="1" step="1"></td>
          
          <td  class="text-center"><p class="centrado fw-bold" name="${i}" id="columnaSubtotal${id}" title=${arrayCompras[2]}>${arrayCompras[4]} </p>
-         <span id="${spanid}" title="${moenda}"></span>
+         <span id="${spanid}" title="${currencyIdsNuevas}"></span>
          </td> 
          <td class="pt-3"><button type="button" onclick="borrarElemento(${id})" class="btnBorrar"></button></td>`
 
             document.getElementById("contenedorItems").innerHTML += agregarAHtml1; //Agregamos los divs al html
-            mintotal = parseInt(document.getElementById(`cantidadItems${id}`).value) * (subTotal3);//Calcula el subtotal Default
+            mintotal = parseInt(document.getElementById(`cantidadItems${id}`).value) * (subTotalIdsNuevas);//Calcula el subtotal Default
             console.log("cantidad================", document.getElementById(`cantidadItems${id}`).value);
             let agregarAHtml21 = `${mintotal}`
             document.getElementById(`columnaSubtotal${id}`).innerHTML += agregarAHtml21 + `</tr>`;
@@ -382,16 +364,16 @@ console.log("PASA X ACA 1");
     calcularValoresUltima()
     console.log("PASA X ACA 2");
 
-     subtotalisimo=subtotalisimo-parseInt(document.getElementById(`columnaSubtotal${nid}`).title)
+     subTotalAntesCostoEnvio=subTotalAntesCostoEnvio-parseInt(document.getElementById(`columnaSubtotal${nid}`).title)
 
-     document.getElementById("subtotal").innerHTML = `USD ${subtotalisimo}`
+     document.getElementById("subtotal").innerHTML = `USD ${subTotalAntesCostoEnvio}`
 arrayIdsActualizado=[50924]
 arrayIdsActualizado+=arrayIds.filter((items)=>{parseInt(items)!==parseInt(nid)
 console.log(items);
 console.log(nid);
 
 console.log(parseInt(items)!==parseInt(nid));
-});//Podría probar a modificar arrayIds, en vez de crear otro array=idsFiltrados
+});
 console.log(arrayIdsActualizado);
 localStorage.removeItem("ids");
 localStorage.setItem("ids",arrayIdsActualizado)
