@@ -26,12 +26,16 @@ let ids;//Creo el array ids, al cual le pasaremos todos los ids que recibamos(Co
 ids = iD;
 console.log(ids);
 
-if (ids == null) { }// Esto lo hago para filtrar las ids q me llegan 
+
+function traerIds() {
+  if (ids == null) { }// Esto lo hago para filtrar las ids q me llegan 
 else {
     let agregar = [localStorage.getItem("ids")]
     agregar.push(ids)
     localStorage.setItem("ids", agregar);//Recordar que el array agregar , se va al local como string , debemos volverlo nuevamente array con split()
+}  
 }
+
 
 /* Comienzo entrega 6 */
 
@@ -57,17 +61,26 @@ function mostrarSubtotal(id) {
         for (i=0; i < arrayIds.length; i++) {
 
 console.log("ESTA ES LA I Q PASA",i);
-        if (document.getElementById(`${i}`).title=="UYU") {
-            
+
+       if(document.getElementById(`${i}`)== null){
+
+       } 
+       else if (document.getElementById(`${i}`).title=="UYU") {
+            console.log("ENTRA AL IF");
             precios=(Math.round(parseInt(document.getElementsByName(`${i}`)[0].title))/41);  console.log(precios);   
             subtotalisimo+=precios
 
-        }else{
-        
+        }else if (document.getElementsByName(`${i}`)[0] !== undefined){
+            console.log("ENTRA AL IF ELSE");
      precios=parseInt(document.getElementsByName(`${i}`)[0].title);     
        subtotalisimo+=precios
        console.log(subtotalisimo);
       
+       }else{
+        console.log("ENTRA AL ELSE");
+        precios=parseInt(document.getElementsByName(`${i++}`)[0].title);     
+       subtotalisimo+=precios
+       console.log(subtotalisimo);
        }
   }
 
@@ -231,14 +244,7 @@ function SubTotal(valor, id, subTotal, moneda,spanid) {  //Creo la función para
         arraysumaSubtotales.push(`${subTotalUltimo}`)
         document.getElementById(`cantidadItems${id}`).value.innerHTML++;
         document.getElementById(`columnaSubtotal${id}`).title = `${subTotalUltimo}`;
-        
-        for (const id of arrayIds) {  //creo q lo puedo borrar 
-
-         sumaSubtotales=parseInt(document.getElementById(`columnaSubtotal${id}`).title); 
          muestraCostos()
-
-        }
-        
          document.getElementById(`columnaSubtotal${id}`).innerHTML = `${moneda} ${subTotalUltimo}`;
 }
      
@@ -372,18 +378,25 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
 }
 
 function borrarElemento(nid) {
-
+console.log("PASA X ACA 1");
     calcularValoresUltima()
+    console.log("PASA X ACA 2");
 
      subtotalisimo=subtotalisimo-parseInt(document.getElementById(`columnaSubtotal${nid}`).title)
 
      document.getElementById("subtotal").innerHTML = `USD ${subtotalisimo}`
+arrayIdsActualizado=[50924]
+arrayIdsActualizado+=arrayIds.filter((items)=>{parseInt(items)!==parseInt(nid)
+console.log(items);
+console.log(nid);
 
-arrayIds=arrayIds.filter((items)=>items!==nid);//Podría probar a modificar arrayIds, en vez de crear otro array=idsFiltrados
-
+console.log(parseInt(items)!==parseInt(nid));
+});//Podría probar a modificar arrayIds, en vez de crear otro array=idsFiltrados
+console.log(arrayIdsActualizado);
 localStorage.removeItem("ids");
-localStorage.setItem("ids",arrayIds)
+localStorage.setItem("ids",arrayIdsActualizado)
 
+traerIds()
 mostrarCostoEnvio()
 
 
@@ -397,6 +410,7 @@ console.log(`${nid}tabla`);
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
+    traerIds()
     traerItems()
 });
 
