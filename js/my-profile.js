@@ -8,7 +8,6 @@ let nombreIngresado;
 let nombreIngresado2;
 let apellidoIngresado;
 let apellidoIngresado2;
-let file;
 let imagen= localStorage.getItem("imagenCodificada");
 
 
@@ -32,7 +31,7 @@ function guardarDatos() {
     primerApellido=document.getElementById("primerApellido").value;
     segundoApellido=document.getElementById("segundoApellido").value;
     telContacto=document.getElementById("telContacto").value;
-    file=document.getElementById("file").value;
+
 
     if (primerNombre !== "" && primerApellido !== "") {
     localStorage.setItem("primerNombre",primerNombre);
@@ -40,12 +39,20 @@ function guardarDatos() {
     localStorage.setItem("primerApellido",primerApellido);
     localStorage.setItem("segundoApellido",segundoApellido);
     localStorage.setItem("telContacto",telContacto);
-    localStorage.setItem("file",file);
+    document.getElementById("container").innerHTML+=`<div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
+Todo salió correctamente !
+</div>`
 
     
 
 
-}else{alert("Debe completar los campos obligatorios(*)")}
+}else{document.getElementById("container").innerHTML+=`<div class="alert alert-danger alert-dismissible" role="alert">
+<button type="button" class="btn-close" aria-label="Close"  data-bs-dismiss="alert"></button>
+Debe completar los campos obligatorios (*)
+</div>`
+
+}
     
 }
 
@@ -56,19 +63,15 @@ apellidoIngresado=localStorage.getItem("primerApellido");
 apellidoIngresado2=localStorage.getItem("segundoApellido");  
 nombreIngresado2=localStorage.getItem("segundoNombre");
 telContacto=localStorage.getItem("telContacto"); 
-file=localStorage.getItem("file"); 
 
 
 document.getElementById("primerNombre").value=nombreIngresado;
 document.getElementById("primerApellido").value=apellidoIngresado;  
 
-if (apellidoIngresado2!=="" || nombreIngresado2!=="" || telContacto!==""|| file!=="") {
+if (apellidoIngresado2!=="" || nombreIngresado2!=="" || telContacto!=="") {
 document.getElementById("segundoNombre").value=nombreIngresado2;
 document.getElementById("segundoApellido").value=apellidoIngresado2;
 document.getElementById("telContacto").value=telContacto;
-/* document.getElementById("imagenPerfil").setAttribute("src",file); */
-
-
 }
 
 }
@@ -91,6 +94,8 @@ function codificadorImagen() {
    
 
     let fileSeleccionado = document.getElementById("file").files;
+
+    console.log(fileSeleccionado);
     
     let imagenSeleccionada=fileSeleccionado[0]
 

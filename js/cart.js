@@ -153,8 +153,8 @@ formulario.addEventListener("submit", (e) => {
 })
 
 function validacionTipoEnvio() {
-    if ((document.getElementById("1").checked || document.getElementById("2").checked || document.getElementById("3").checked)) {
-        document.getElementById("3").setCustomValidity('')
+    if ((document.getElementById("t1").checked || document.getElementById("t2").checked || document.getElementById("t3").checked)) {
+        document.getElementById("t3").setCustomValidity('')
     }
 
 }
