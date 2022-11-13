@@ -1,27 +1,36 @@
-//Le asignamos id="emailUser" , id="buttonLogin" e id="cn" al div del html, xa poder usarlo con DOM 
-/* const firebase= require("firebase"); */
+let Email;
+let userMail;
+let Contra;
+
+
 document.addEventListener("DOMContentLoaded",function(){ //Esto lo hacemos para que si algún elemento tiene async o algo raro , no tener problemas.
     
-    
-    
-    
-    document.getElementById("buttonLogin").addEventListener("click",function(){
+document.getElementById("buttonLogin").addEventListener("click",function(){
 
-let Email = document.getElementById("emailUser").value;
-let userMail = localStorage.setItem("UserMail", Email);
-let Contra = document.getElementById("cn").value;
+Email = document.getElementById("emailUser").value;
+userMail = localStorage.setItem("UserMail", Email);
+Contra = document.getElementById("cn").value;
     
 if (Email =="" && Contra=="") {
-    alert("Por favor complete su Email y Contraseña");
+    document.getElementById("container").innerHTML=`<div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
+    Por favor complete su Email y Contraseña
+    </div>`;
 
 }else if (Email ==""){
-    alert("Por favor complete su Email")
+    document.getElementById("container").innerHTML=`<div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="btn-close" aria-label="Close"  data-bs-dismiss="alert"></button>
+    Por favor complete su Email
+    </div>`;
 }
 else if (Contra=="") {
-    alert("Por favor complete su Contraseña")
+    document.getElementById("container").innerHTML=`<div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="btn-close" aria-label="Close"  data-bs-dismiss="alert"></button>
+    Por favor complete su Contraseña
+    </div>`;
 }else{
     window.location = "portada.html" //renombramos a index.html como portada.html
-    localStorage.setItem("ids","50924")//Ultimo desafiate
+    localStorage.setItem("ids","50924")
 }
 })})
 
@@ -42,7 +51,6 @@ await signInWithPopup(auth,provider)
 
 })
 
-// Creo q no funciona x cross origin , debo mirar si en casaa sigue el error
 
 
 

@@ -5,7 +5,6 @@ let iD = localStorage.getItem("idObjeto");
 let arrayCompras;
 let idsUsadas = [];
 let id;
-let subtotal;
 let currencyIdsNuevas;//Se usa como currency xa las ids nuevas
 let nuevaCantidad;// Variable que me guarda la nueva cantidad(cuando el usuario modifica la cantidad de productos que quiere)
 let subTotalUltimo;// Es el nuevo subtotal , resultante de los cambios de cantidad o más objetos
@@ -20,6 +19,7 @@ let totalCompra;// Se calcula el total de la compra(articulos + costo envío )
 let eleccionUser;//Acá se guarda la elección de método de envío. 
 let precios; //Se guarda acá el precio del item en dólares(se hace la conversión cuano es necesario)
 let subTotalAntesCostoEnvio;//Se guarda el subTotal antes de sumarle el costo de envío
+let formulario = document.getElementById("formulario1")
 let ids;//Creo el array ids, al cual le pasaremos todos los ids que recibamos(Con el objetivo de poder comparar nuevos y viejos) 
 ids = iD;
 
@@ -33,11 +33,7 @@ else {
 }  
 }
 
-
-
-
-
- 
+// Funciones para Subtotal-costo envío y total 
 function mostrarSubtotal(id) {
 
     calcularValoresUltima()
@@ -128,11 +124,12 @@ function total() {
 
 }
 
-/* Termino entrega 6 */
+// Termino Funciones para Subtotal-costo envío y total 
+
 
 //Comienzo formulario entrega 6
 
-let formulario = document.getElementById("formulario1")
+
 
 formulario.addEventListener("submit", (e) => {
 
@@ -203,6 +200,8 @@ function formaDePago() {
 
 //Termino formulario entrega 6
 
+//Empiezo funciones xa trajer objetos , calcular subtotal y borrar elementos (default & cuanso se le da a comprar)
+
 function traerItems() {
     fetch(url)
         .then(response => response.json())
@@ -210,6 +209,7 @@ function traerItems() {
         .then(agregarHtml)
         .then(agregarProductos)
         .then(muestraCostos)
+        .catch(error=>console.error(error))
 }
 
 
@@ -275,7 +275,7 @@ function agregarHtml() { //Función que agrega el producto Default
          mooneda=itemsDefault[i].articles[i].currency;
 
         let agregarAHtml = `
-        <tr id="${id}tabla">
+        <tr id="${id}tabla" title=0>
          <th><img class="imagenesTabla rounded mx-auto d-block" src=${itemsDefault[i].articles[i].image}></th>
          <td class="text-center"><p class="centrado">${itemsDefault[i].articles[i].name}</p></td>
          <td class="text-center"><p class="centrado" >USD ${itemsDefault[i].articles[i].unitCost}</p></td> 
@@ -360,7 +360,7 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
             arraysumaSubtotales.push(`${subTotalIdsNuevas}`);
             
             let agregarAHtml1 = `
-        <tr id="${id}tabla">
+        <tr id="${id}tabla" title="${i}">
          <th><img class="imagenesTabla rounded mx-auto d-block" src=${arrayCompras[3]}></th>
          <td class="text-center"><p class="centrado">${arrayCompras[1]}</p></td>
          <td class="text-center"><p class="centrado">${arrayCompras[4]} ${arrayCompras[2]}</p></td> 
@@ -386,27 +386,37 @@ function agregarProductos() {//Función que agrega los productos cuando el user 
 
 function borrarElemento(nid) {
 
+    let posicionObjeto=document.getElementById(`${nid}tabla`).title;//Creo esta variable xa poder consultar la "posición" del objeto q el usuario elimina y así poder acceder al span con el mismo nombre donde se encuentra guardada la currency del objeto.
+    
     calcularValoresUltima()
 
-     subTotalAntesCostoEnvio=subTotalAntesCostoEnvio-parseInt(document.getElementById(`columnaSubtotal${nid}`).title)
+    if (document.getElementById(`${posicionObjeto}`).title=="UYU") {//Realizo este if porque quiero que al cargar el objeto se muestre en UYU , por lo tanto aquí , cuando voy a realizar la resta , debo filtrar las currency UYU(solo lo serán si el user no cambia el valor de cal cantidad , si lo hace currency se define a dólares)
+        subTotalAntesCostoEnvio=subTotalAntesCostoEnvio-(parseInt(document.getElementById(`columnaSubtotal${nid}`).title)/41) 
+    }else{
+        subTotalAntesCostoEnvio=subTotalAntesCostoEnvio-parseInt(document.getElementById(`columnaSubtotal${nid}`).title)}
+
+     
 
      document.getElementById("subtotal").innerHTML = `USD ${subTotalAntesCostoEnvio}`
 
 arrayIdsActualizado=[50924]
 
-arrayIdsActualizado+=arrayIds.filter((items)=>{parseInt(items)!==parseInt(nid)
-
-});
+arrayIdsActualizado+=arrayIds.filter((items)=>{parseInt(items)!==parseInt(nid)});// A arrayIds(array q contiene todos los objetos que se imprimen en pantalla ) se le "saca" en realidad se crea un array nuevo , sin esa id (la id q se borra).
 
 localStorage.removeItem("ids");
+
 localStorage.setItem("ids",arrayIdsActualizado)
 
 traerIds()
+
 mostrarCostoEnvio()
 
      document.getElementById(`${nid}tabla`).innerHTML=""
  
 }
+
+//Termino funciones xa trajer objetos , calcular subtotal y borrar elementos (default & cuanso se le da a comprar)
+
 
 document.addEventListener("DOMContentLoaded", (e) => {
     traerIds()

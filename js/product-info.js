@@ -12,11 +12,7 @@ let arrayCompras=[];
 let iD;
 let arrayComprasArray=[];
 
-document.addEventListener("DOMContentLoaded", function () {
 
-    loadPage(url)
-
-})//Termina DOMContentLoaded y cierra funcion de dentro.
 
 function loadPage(url) {
         
@@ -120,44 +116,48 @@ function miJSONDATA(){
     .then(objetoComentarios=>comentarios(urlComentarios));}
 
 
-//Creo función xa calcular estrellas, es bastante bruta , seguro se puede mejorar.
+//Creo función xa calcular estrellas
 
 function calcStars(score) {
-    if (score==5) {
-    estrellas=` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  if (score == 5) {
+    estrellas = ` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <span class="fa fa-star checked"></span>
     <span class="fa fa-star checked"></span>
     <span class="fa fa-star checked"></span>
     <span class="fa fa-star checked"></span>
     <span class="fa fa-star checked"></span>
     `
-    } else if (score==4) {estrellas=` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  } else if (score == 4) {
+    estrellas = ` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star"></span>
-        `}else if(score==3){estrellas=` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        `} else if (score == 3) {
+    estrellas = ` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star"></span>
         <span class="fa fa-star"></span>
- `}else if(score==2){estrellas=` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ `} else if (score == 2) {
+    estrellas = ` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  <span class="fa fa-star checked"></span>
  <span class="fa fa-star checked"></span>
  <span class="fa fa-star"></span>
  <span class="fa fa-star"></span>
  <span class="fa fa-star"></span>
 `
-}else if(score==1){
-    estrellas=` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  } else if (score == 1) {
+    estrellas = ` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <span class="fa fa-star checked"></span>
 <span class="fa fa-star"></span>
 <span class="fa fa-star"></span>
 <span class="fa fa-star"></span>
 <span class="fa fa-star"></span>
-`}else{estrellas=` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+`} else {
+    estrellas = ` <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <span class="fa fa-star"></span>
 <span class="fa fa-star"></span>
 <span class="fa fa-star"></span>
@@ -165,7 +165,7 @@ function calcStars(score) {
 <span class="fa fa-star"></span>
 `
 
-}
+  }
 }
 
 function comentarios(urlComentarios) {
@@ -189,9 +189,6 @@ function comentarios(urlComentarios) {
 document.getElementById("comentariosUsers").innerHTML += agregarComentario;
 }}
    
-// Me queda terminar Pauta 4 y desafío.
-
-
 
 function comentar() {
 let agregarComentar=` <h3 class="Comentarios">Cometarios</h3>
@@ -275,7 +272,7 @@ function fechaHOY() {
      console.log(hoy);
 }
 
-function Redirigir(id) {  // Creo funciòn redirigir xa q cree la url cuando el usuario da click en algún objeto
+function Redirigir(id) {  // Creo función redirigir xa q cree la url cuando el usuario da click en algún objeto
     //llama a la función q carga la página.
 
     url2 = "https://japceibal.github.io/emercado-api/products/" + `${id}` + ".json";
@@ -286,3 +283,9 @@ function Redirigir(id) {  // Creo funciòn redirigir xa q cree la url cuando el 
     
 
 } 
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    loadPage(url)
+
+})
